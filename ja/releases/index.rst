@@ -1,3 +1,5 @@
+.. _release-notes:
+
 ============================================================
 リリース情報
 ============================================================
@@ -14,6 +16,22 @@
     - バージョン
     - リリースノート
     - ドキュメント
+  * - 2024/3/15
+    - 5u24
+    - :download:`リリースノート(5u24) <./nablarch5u24-releasenote.xlsx>`
+    - `ドキュメント(5u24) <https://nablarch.github.io/docs/5u24/doc/>`_
+  * - 2023/9/27
+    - 5u23
+    - :download:`リリースノート(5u23) <./nablarch5u23-releasenote.xlsx>`
+    - `ドキュメント(5u23) <https://nablarch.github.io/docs/5u23/doc/>`_
+  * - 2023/3/28
+    - 5u22
+    - :download:`リリースノート(5u22) <./nablarch5u22-releasenote.xlsx>`
+    - `ドキュメント(5u22) <https://nablarch.github.io/docs/5u22/doc/>`_
+  * - 2022/3/24
+    - 5u21
+    - :download:`リリースノート(5u21) <./nablarch5u21-releasenote.xlsx>`
+    - `ドキュメント(5u21) <https://nablarch.github.io/docs/5u21/doc/>`_
   * - 2021/10/26
     - 5u20
     - :download:`リリースノート(5u20) <./nablarch5u20-releasenote.xlsx>`

@@ -15,7 +15,7 @@
 
 この機能では、ディレードオンライン処理と呼ばれる方式を採用しており、
 メール送信を即時に行うのではなく、一旦、メール送信要求をデータベースに格納しておき、
-:ref:`常駐バッチ<nablarch_batch-resident_batch>` を使い非同期にメール送信を行う。
+:ref:`常駐バッチ<nablarch_batch-resident_batch>` を使い非同期にメールを送信する。
 
 .. image:: images/mail/mail_system.png
   :scale: 60
@@ -34,7 +34,7 @@
 メール送信要求1つにつきメールを1通送信する。
 
 .. tip::
-  本機能は、即時にメール送信を行うAPIは提供していない。
+  本機能は、即時にメールを送信するAPIは提供していない。
   この場合は、 |JavaMail| を直接使用すること。
 
 機能概要
@@ -64,10 +64,12 @@
  * :ref:`mail_sender_thymeleaf_adaptor`
  * :ref:`mail_sender_velocity_adaptor`
 
+.. _`do-not-use-for-campaign-mail`:
+
 キャンペーン通知のような大量メールの一斉送信には対応していない
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 本機能では、キャンペーン通知のような一斉送信には対応していない。
-下記に当てはまる場合は、プロダクトの利用を推奨する。
+下記に当てはまる場合は、プロダクトの使用を推奨する。
 
 * キャンペーン通知やメールマガジンなど、一括で大量のメールを送信する。
 * 配信したメールの開封率、クリックカウントの効果を測定する。
@@ -97,7 +99,7 @@
 
 .. _`mail-settings`:
 
-メール送信を使うための設定を行う
+メール送信を使うための設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 この機能では、データベースを使用してメール送信に使うデータを管理する。
 テーブルのレイアウトは以下となる。
@@ -158,7 +160,7 @@
     -
   * - 連番 ``PK``
     - 数値型
-    - 一つのメール送信要求内の連番
+    - １つのメール送信要求内の連番
   * - 送信先区分
     - 文字列型
     - メールの送信先区分(TO／CC／BCC)を表すコード値
@@ -176,7 +178,7 @@
     -
   * - 連番 ``PK``
     - 数値型
-    - 一つのメール送信要求内の連番
+    - １つのメール送信要求内の連番
   * - 添付ファイル名
     - 文字列型
     -
@@ -208,7 +210,7 @@
     - 文字列型
     - メール送信時に指定する文字セット
 
-メール送信を使うには、以下の設定を行う。
+メール送信を使うには、以下のとおり設定する。
 
 * :ref:`メール送信要求とメール送信バッチの共通設定<mail-common_settings>`
 * :ref:`メール送信要求の設定<mail-mail_requester_settings>`
@@ -217,7 +219,7 @@
 .. _mail-common_settings:
 
 メール送信要求とメール送信バッチの共通設定
- 共通設定では、以下の設定を行う。
+ 共通設定では、以下のとおり設定する。
 
  * :ref:`テーブルスキーマ<mail-common_settings_table_schema>`
  * :ref:`コード値とメッセージ<mail-common_settings_mail_config>`
@@ -386,7 +388,7 @@
 .. _mail-mail_sender_settings:
 
 メール送信バッチの設定
- メール送信バッチが使用するSMTPサーバーへの接続情報を設定する。
+ メール送信バッチが使用するSMTPサーバへの接続情報を設定する。
  :java:extdoc:`MailSessionConfig<nablarch.common.mail.MailSessionConfig>` をコンポーネント定義に追加する。
  設定項目の詳細は、リンク先のJavadocを参照。
 
@@ -500,7 +502,7 @@
 
 未送信のデータを抽出する際の条件
  :java:extdoc:`MailSender<nablarch.common.mail.MailSender>` は、
- メール送信要求テーブルから未送信のデータを抽出し、メール送信を行う。
+ メール送信要求テーブルから未送信のデータを抽出し、メールを送信する。
  未送信のデータを抽出する際の条件は、次の2つから選択可能となっている。
 
   * テーブル全体から未送信のデータを抽出する
@@ -531,7 +533,7 @@
 
 メール送信時のエラー処理
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-:java:extdoc:`MailSender<nablarch.common.mail.MailSender>` は、外部からの入力データ(アドレスやヘッダー)に起因する例外やメール送信失敗の例外が発生した場合、
+:java:extdoc:`MailSender<nablarch.common.mail.MailSender>` は、外部からの入力データ(アドレスやヘッダ)に起因する例外やメール送信失敗の例外が発生した場合、
 対象のメール送信要求のステータスを送信失敗にして次のメール送信処理を行う。
 また、上記以外の例外が発生した場合は、メール送信要求のステータスを送信失敗にしてリトライする。
 
@@ -543,11 +545,11 @@
 
   * - 例外
     - 処理
-  * - 送信要求のメールアドレス変換時の `JavaMailのAddressException <https://javamail.java.net/nonav/docs/api/javax/mail/internet/AddressException.html>`_
+  * - 送信要求のメールアドレス変換時の `JavaMailのAddressException <https://javaee.github.io/javamail/docs/api/javax/mail/internet/AddressException.html>`_
     - 変換に失敗したアドレスをログ出力(ログレベル: ERROR)する。
   * - :ref:`mail-mail_header_injection` での :java:extdoc:`InvalidCharacterException<nablarch.common.mail.InvalidCharacterException>`
-    - ヘッダー文字列をログ出力(ログレベル: ERROR)する。
-  * - メール送信失敗時の `JavaMailのSendFailureException <https://javamail.java.net/nonav/docs/api/javax/mail/SendFailedException.html>`_
+    - ヘッダ文字列をログ出力(ログレベル: ERROR)する。
+  * - メール送信失敗時の `JavaMailのSendFailureException <https://javaee.github.io/javamail/docs/api/javax/mail/SendFailedException.html>`_
     - 送信されたアドレス、送信されなかったアドレス、不正なアドレスをログ出力(ログレベル: ERROR)する。
   * - 上記以外のメール送信時の :java:extdoc:`Exception <java.lang.Exception>`
     - 例外をラップしてリトライ例外を送出する。
@@ -565,7 +567,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 メール送信をマルチプロセス化する場合（例えば冗長構成のサーバで実行する場合）、
 メール送信要求テーブルのプロセスIDカラムを使用して悲観ロックを行い、複数のプロセスが同一の送信要求を処理しないようにする。
-この機能を利用するには、 次の設定が必要となる。
+この機能を使用するには、 次の設定が必要となる。
 
  1. メール送信要求テーブルにメール送信バッチのプロセスIDのカラムを定義する
  2. :java:extdoc:`MailRequestTable<nablarch.common.mail.MailRequestTable>` のsendProcessIdColumnNameのプロパティの値にメール送信バッチのプロセスIDのカラム名を設定し、コンポーネント定義に追加する
@@ -577,6 +579,14 @@
    しかし、見かけ上メール送信バッチが動作するため、設定漏れを検知しづらい。
    メール送信をマルチプロセス化する場合は上記の設定を漏れなく行うこと。
 
+ .. important::
+
+  Nablarchのメール送信機能では :ref:`do-not-use-for-campaign-mail` 。マルチプロセス化についても、大量メールを分散して送信することが目的ではなく
+  冗長構成のサーバで一部のサーバに障害が発生してもメール送信機能を継続できることを目的としている。
+  そのため、各プロセスが送信対象とするメールはプロセス起動時点で未送信のメール全て(※)となり、プロセス間での均等分散は行わない。
+  
+  ※メール送信パターンIDを指定している場合は該当のメール送信パターンIDのうち未送信のメール全てが対象
+
 .. _`mail-mail_header_injection`:
 
 メールヘッダインジェクション攻撃への対策
@@ -584,15 +594,15 @@
 メールヘッダインジェクション攻撃への根本的対策として、以下の対策を実施する必要がある。
 
 * メールヘッダは固定値を使用する。外部からの入力値を使用しない。
-* プログラミング言語の標準APIを使用してメール送信を行う。Javaの場合は |JavaMail| を使用する。
+* プログラミング言語の標準APIを使用してメールを送信する。Javaの場合は |JavaMail| を使用する。
 
 メールヘッダは固定値を使用する。外部からの入力値を使用しない。
  これについては、プロジェクトで対応する。
  固定値にできない場合は、改行コードを変換するか、取り除く対応をプロジェクトで行う。
 
-プログラミング言語の標準APIを使用してメール送信を行う。Javaの場合は |JavaMail| を使用する。
- 本機能では |JavaMail| を利用している。
- しかし、 |JavaMail| を利用しても、一部のメールヘッダの項目に改行コードが含まれていてもメール送信可能な項目がある。
+プログラミング言語の標準APIを使用してメールを送信する。Javaの場合は |JavaMail| を使用する。
+ 本機能では |JavaMail| を使用している。
+ しかし、 |JavaMail| を使用しても、一部のメールヘッダの項目に改行コードが含まれていてもメール送信可能な項目がある。
  そのため、保険的対策として、これらの項目に対して改行コードが含まれている場合にはメール送信を実施しないチェック機能を設けている。
  改行コードが含まれていた場合には、
  :java:extdoc:`InvalidCharacterException<nablarch.common.mail.InvalidCharacterException>`
@@ -625,7 +635,7 @@
 
 そのような場合は、上の例と同様、:java:extdoc:`MailSender<nablarch.common.mail.MailSender>` を継承したクラスを作成して対応する。
 
-メール送信要求時に利用するトランザクションを指定する
+メール送信要求時に使用するトランザクションを指定する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 業務アプリケーションが失敗してもメール送信要求を確実に行いたい場合など、
 メール送信要求 :java:extdoc:`MailRequester<nablarch.common.mail.MailRequester>` とメール送信要求IDの :ref:`採番<generator>`

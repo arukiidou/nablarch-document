@@ -22,7 +22,9 @@ Nablarch
   examples/index
   nablarch_api/index
   releases/index
+  about_nablarch/versionup_policy
   inquiry/index
+  terms_of_use/index
 
 -----------------------------------------------
 Nablarchについて
@@ -38,9 +40,9 @@ Nablarch(ナブラーク)は、TISの豊富な基幹システム構築経験か�
 Nablarchシステム開発ガイド
 -----------------------------------------------
 
-Nablarchを使ってシステム開発を行うエンジニアに対して、開発開始前・開発中になにをすべきかを示すガイドラインです。
+Nablarchを使ってシステムを開発するエンジニアに対して、開発開始前・開発中になにをすべきかを示すガイドラインです。
 
- | `システム開発ガイド <https://fintan.jp/?p=4234>`__
+ | `システム開発ガイド <https://fintan.jp/page/252/>`__
 
 -----------------------------------------------
 Nablarch開発標準
@@ -48,7 +50,7 @@ Nablarch開発標準
 
 設計書やプログラムコードを作成する際に従うべきガイドラインです。
 
- | `開発標準 <https://fintan.jp/?p=1145>`__
+ | `開発標準 <https://fintan.jp/page/1868/#development-standards>`__
 
 
 -----------------------------------------------
@@ -129,5 +131,3 @@ Nablarch実装例集
 -----------------------------------------------
 
   | :doc:`機能追加要望・改善要望 <inquiry/index>`
-
-

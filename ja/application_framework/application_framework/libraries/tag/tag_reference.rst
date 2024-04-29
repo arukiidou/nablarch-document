@@ -4,6 +4,9 @@
 タグリファレンス
 ==================================================
 
+| このリファレンスには、Nablarchが提供するタグとその属性について記述されている。
+| 各タグの使用方法や使用例などの詳細については :ref:`tag` を参照すること。
+
 フォーム
  | :ref:`tag-form_tag` (フォーム)
 
@@ -146,10 +149,10 @@ URIを指定するHTMLタグ(コンテキストパスの付加とURLリライト
 
 .. _tag-dynamic_attributes_tag:
 
-動的属性の利用
+動的属性の使用
 --------------------------------------------------
 
-動的属性が利用可能なタグでは、定義されていない属性も設定が可能となる。
+動的属性が使用可能なタグでは、定義されていない属性も設定が可能となる。
 
 個別属性
 ======================================================
@@ -159,7 +162,7 @@ URIを指定するHTMLタグ(コンテキストパスの付加とURLリライト
 formタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -198,7 +201,7 @@ formタグ
 textタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -210,14 +213,14 @@ textタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
-   readonly                               XHTMLのreadonly属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   readonly                               XHTMLのreadonly属性 (:ref:`論理属性 <boolean_attribute>`) 。
    size                                   XHTMLのsize属性。
    maxlength                              XHTMLのmaxlength属性。
    onselect                               XHTMLのonselect属性。
    onchange                               XHTMLのonchange属性。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    placeholder                            HTML5のplaceholder属性。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
@@ -232,7 +235,7 @@ textタグ
 searchタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -244,9 +247,9 @@ searchタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -260,7 +263,7 @@ searchタグ
 telタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -272,9 +275,9 @@ telタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -288,7 +291,7 @@ telタグ
 urlタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -300,9 +303,9 @@ urlタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -316,7 +319,7 @@ urlタグ
 emailタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -328,9 +331,9 @@ emailタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -344,7 +347,7 @@ emailタグ
 dateタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -356,9 +359,9 @@ dateタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -372,7 +375,7 @@ dateタグ
 monthタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -384,9 +387,9 @@ monthタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -400,7 +403,7 @@ monthタグ
 weekタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -412,9 +415,9 @@ weekタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -428,7 +431,7 @@ weekタグ
 timeタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -440,9 +443,9 @@ timeタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -456,7 +459,7 @@ timeタグ
 datetimeLocalタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -468,9 +471,9 @@ datetimeLocalタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -484,7 +487,7 @@ datetimeLocalタグ
 numberタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -496,9 +499,9 @@ numberタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -512,7 +515,7 @@ numberタグ
 rangeタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -524,9 +527,9 @@ rangeタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -540,7 +543,7 @@ rangeタグ
 colorタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -552,9 +555,9 @@ colorタグ
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。値表示の際、value属性が指定されていない場合はXHTMLのvalue属性にも使用される
    value                                  XHTMLのvalue属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -568,7 +571,7 @@ colorタグ
 textareaタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -581,11 +584,11 @@ textareaタグ
    name ``必須``                          XHTMLのname属性。
    rows ``必須``                          XHTMLのrows属性。
    cols ``必須``                          XHTMLのcols属性。
-   disabled                               XHTMLのdisabled属性。
-   readonly                               XHTMLのreadonly属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   readonly                               XHTMLのreadonly属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onselect                               XHTMLのonselect属性。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    placeholder                            HTML5のplaceholder属性。
    maxlength                              HTML5のmaxlength属性。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
@@ -599,7 +602,7 @@ textareaタグ
 passwordタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -610,14 +613,14 @@ passwordタグ
    :ref:`tag-generic_attributes_tag`    
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。
-   disabled                               XHTMLのdisabled属性。
-   readonly                               XHTMLのreadonly属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   readonly                               XHTMLのreadonly属性 (:ref:`論理属性 <boolean_attribute>`) 。
    size                                   XHTMLのsize属性。
    maxlength                              XHTMLのmaxlength属性。
    onselect                               XHTMLのonselect属性。
    onchange                               XHTMLのonchange属性。
    autocomplete                           HTML5のautocomplete属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    placeholder                            HTML5のplaceholder属性。
    restoreValue                           入力画面の再表示時に入力データを復元するか否か。
                                           復元する場合は ``true`` 、復元しない場合は ``false`` 。
@@ -635,7 +638,7 @@ passwordタグ
 radioButtonタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -648,9 +651,9 @@ radioButtonタグ
    name ``必須``                          XHTMLのname属性。
    value ``必須``                         XHTMLのvalue属性。
    label ``必須``                         ラベル。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -662,7 +665,7 @@ radioButtonタグ
 checkboxタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -676,7 +679,7 @@ checkboxタグ
    value                                  XHTMLのvalue属性。
                                           チェックありの場合に使用する値。
                                           デフォルトは ``1`` 。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    label                                  チェックありの場合に使用するラベル。
                                           入力画面では、このラベルが表示される。
    useOffValue                            チェックなしの値設定を使用するか否か。
@@ -684,7 +687,7 @@ checkboxタグ
    offLabel                               チェックなしの場合に使用するラベル。
    offValue                               チェックなしの場合に使用する値。
                                           デフォルトは ``0`` 。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
@@ -697,7 +700,7 @@ checkboxタグ
 compositeKeyCheckboxタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -723,10 +726,10 @@ compositeKeyCheckboxタグ
                                           なお、name属性は、namePrefix属性とkeyNames属性で指定した\
                                           キーの組み合わせと異なる名称にしなければならない特殊な制約がある。\
                                           実装時はこの点に十分注意すること。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    label                                  チェックありの場合に使用するラベル。
                                           入力画面では、このラベルが表示される。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
@@ -739,7 +742,7 @@ compositeKeyCheckboxタグ
 compositeKeyRadioButtonタグ
 ---------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -765,10 +768,10 @@ compositeKeyRadioButtonタグ
                                           なお、name属性は、namePrefix属性とkeyNames属性で指定した\
                                           キーの組み合わせと異なる名称にしなければならない特殊な制約がある。\
                                           実装時はこの点に十分注意すること。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    label                                  チェックありの場合に使用するラベル。
                                           入力画面では、このラベルが表示される。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
@@ -781,7 +784,7 @@ compositeKeyRadioButtonタグ
 fileタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -792,15 +795,15 @@ fileタグ
    :ref:`tag-generic_attributes_tag`    
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。
-   disabled                               XHTMLのdisabled属性。
-   readonly                               XHTMLのreadonly属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   readonly                               XHTMLのreadonly属性 (:ref:`論理属性 <boolean_attribute>`) 。
    size                                   XHTMLのsize属性。
    maxlength                              XHTMLのmaxlength属性。
    onselect                               XHTMLのonselect属性。
    onchange                               XHTMLのonchange属性。
    accept                                 XHTMLのaccept属性。
-   autofocus                              HTML5のautofocus属性。
-   multiple                               HTML5のmultiple属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   multiple                               HTML5のmultiple属性 (:ref:`論理属性 <boolean_attribute>`) 。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
    nameAlias                              name属性のエイリアスを設定する。
@@ -812,9 +815,9 @@ fileタグ
 hiddenタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
-HTMLタグの出力を行わず、ウィンドウスコープに値を出力する。
+HTMLタグを出力せず、ウィンドウスコープに値を出力する。
 
 .. important::
 
@@ -830,7 +833,7 @@ HTMLタグの出力を行わず、ウィンドウスコープに値を出力す�
    :ref:`tag-generic_attributes_tag`    
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    ====================================== ==========================================================================================
 
 .. _tag-plain_hidden_tag:
@@ -838,7 +841,7 @@ HTMLタグの出力を行わず、ウィンドウスコープに値を出力す�
 plainHiddenタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -849,7 +852,7 @@ plainHiddenタグ
    :ref:`tag-generic_attributes_tag`    
    :ref:`tag-focus_attributes_tag`      
    name ``必須``                          XHTMLのname属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    ====================================== ==========================================================================================
 
 .. _tag-hidden_store_tag:
@@ -857,7 +860,7 @@ plainHiddenタグ
 hiddenStoreタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -868,7 +871,7 @@ hiddenStoreタグ
    :ref:`tag-generic_attributes_tag`
    :ref:`tag-focus_attributes_tag`
    name ``必須``                          XHTMLのname属性。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    ====================================== ==========================================================================================
 
 .. _tag-select_tag:
@@ -876,7 +879,7 @@ hiddenStoreタグ
 selectタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -892,13 +895,13 @@ selectタグ
    elementLabelProperty ``必須``          リスト要素からラベルを取得するためのプロパティ名。
    elementValueProperty ``必須``          リスト要素から値を取得するためのプロパティ名。
    size                                   XHTMLのsize属性。
-   multiple                               XHTMLのmultiple属性。
-   disabled                               XHTMLのdisabled属性。
+   multiple                               XHTMLのmultiple属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    tabindex                               XHTMLのtabindex属性。
    onfocus                                XHTMLのonfocus属性。
    onblur                                 XHTMLのonblur属性。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    elementLabelPattern                    ラベルを整形するためのパターン。
                                           プレースホルダを下記に示す。
                                           ``$LABEL$`` : ラベル
@@ -930,7 +933,7 @@ selectタグ
 radioButtonsタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -946,9 +949,9 @@ radioButtonsタグ
                                           リクエストスコープから取得した選択肢リストが空の場合、画面には何も表示しない。
    elementLabelProperty ``必須``          リスト要素からラベルを取得するためのプロパティ名。
    elementValueProperty ``必須``          リスト要素から値を取得するためのプロパティ名。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
                                           選択肢のうち、先頭要素のみautofocus属性を出力する。
    elementLabelPattern                    ラベルを整形するためのパターン。
                                           プレースホルダを下記に示す。
@@ -975,7 +978,7 @@ radioButtonsタグ
 checkboxesタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -991,9 +994,9 @@ checkboxesタグ
                                           リクエストスコープから取得した選択肢リストが空の場合、画面には何も表示しない。
    elementLabelProperty ``必須``          リスト要素からラベルを取得するためのプロパティ名。
    elementValueProperty ``必須``          リスト要素から値を取得するためのプロパティ名。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
                                           選択肢のうち、先頭要素のみautofocus属性を出力する。
    elementLabelPattern                    ラベルを整形するためのパターン。
                                           プレースホルダを下記に示す。
@@ -1020,7 +1023,7 @@ checkboxesタグ
 submitタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1034,13 +1037,13 @@ submitタグ
    type ``必須``                          XHTMLのtype属性。
    uri ``必須``                           URI。
                                           :ref:`tag-specify_uri` を参照。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    value                                  XHTMLのvalue属性。
    src                                    XHTMLのsrc属性。
    alt                                    XHTMLのalt属性。
    usemap                                 XHTMLのusemap属性。
    align                                  XHTMLのalign属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    allowDoubleSubmission                  二重サブミットを許可するか否か。
                                           許可する場合は ``true`` 、許可しない場合は ``false`` 。
                                           デフォルトは ``true`` 。
@@ -1058,7 +1061,7 @@ submitタグ
 buttonタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1073,8 +1076,8 @@ buttonタグ
                                           :ref:`tag-specify_uri` を参照。
    value                                  XHTMLのvalue属性。
    type                                   XHTMLのtype属性。
-   disabled                               XHTMLのdisabled属性。
-   autofocus                              HTML5のautofocus属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    allowDoubleSubmission                  二重サブミットを許可するか否か。
                                           許可する場合は ``true`` 、許可しない場合は ``false`` 。
                                           デフォルトは ``true`` 。
@@ -1092,7 +1095,7 @@ buttonタグ
 submitLinkタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1124,7 +1127,7 @@ submitLinkタグ
 popupSubmitタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1138,13 +1141,13 @@ popupSubmitタグ
    type ``必須``                          XHTMLのtype属性。
    uri ``必須``                           URI。
                                           :ref:`tag-specify_uri` を参照。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    value                                  XHTMLのvalue属性。
    src                                    XHTMLのsrc属性。
    alt                                    XHTMLのalt属性。
    usemap                                 XHTMLのusemap属性。
    align                                  XHTMLのalign属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    secure                                 URIをhttpsにするか否か。
                                           httpsにする場合は ``true`` 、しない場合は ``false`` 。
    popupWindowName                        ポップアップのウィンドウ名。
@@ -1163,7 +1166,7 @@ popupSubmitタグ
 popupButtonタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1178,8 +1181,8 @@ popupButtonタグ
                                           :ref:`tag-specify_uri` を参照。
    value                                  XHTMLのvalue属性。
    type                                   XHTMLのtype属性。
-   disabled                               XHTMLのdisabled属性。
-   autofocus                              HTML5のautofocus属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    secure                                 URIをhttpsにするか否か。
                                           httpsにする場合は ``true`` 、しない場合は ``false`` 。
    popupWindowName                        ポップアップのウィンドウ名。
@@ -1198,7 +1201,7 @@ popupButtonタグ
 popupLinkタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1231,7 +1234,7 @@ popupLinkタグ
 downloadSubmitタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1245,13 +1248,13 @@ downloadSubmitタグ
    type ``必須``                          XHTMLのtype属性。
    uri ``必須``                           URI。
                                           :ref:`tag-specify_uri` を参照。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    value                                  XHTMLのvalue属性。
    src                                    XHTMLのsrc属性。
    alt                                    XHTMLのalt属性。
    usemap                                 XHTMLのusemap属性。
    align                                  XHTMLのalign属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    allowDoubleSubmission                  二重サブミットを許可するか否か。
                                           許可する場合は ``true`` 、許可しない場合は ``false`` 。
                                           デフォルトは ``true`` 。
@@ -1269,7 +1272,7 @@ downloadSubmitタグ
 downloadButtonタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1284,8 +1287,8 @@ downloadButtonタグ
                                           :ref:`tag-specify_uri` を参照。
    value                                  XHTMLのvalue属性。
    type                                   XHTMLのtype属性。
-   disabled                               XHTMLのdisabled属性。
-   autofocus                              HTML5のautofocus属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    allowDoubleSubmission                  二重サブミットを許可するか否か。
                                           許可する場合は ``true`` 、許可しない場合は ``false`` 。
                                           デフォルトは ``true`` 。
@@ -1303,7 +1306,7 @@ downloadButtonタグ
 downloadLinkタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1335,7 +1338,7 @@ downloadLinkタグ
 paramタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1357,7 +1360,7 @@ paramタグ
 changeParamNameタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1374,7 +1377,7 @@ changeParamNameタグ
 aタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1404,7 +1407,7 @@ aタグ
 imgタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1435,7 +1438,7 @@ imgタグ
 linkタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1462,7 +1465,7 @@ linkタグ
 scriptタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1487,7 +1490,7 @@ scriptタグ
 errorsタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1518,7 +1521,7 @@ errorsタグ
 errorタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1541,7 +1544,7 @@ errorタグ
 noCacheタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 属性なし。
 
@@ -1550,7 +1553,7 @@ noCacheタグ
 codeSelectタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1562,13 +1565,13 @@ codeSelectタグ
    name ``必須``                          XHTMLのname属性。
    codeId ``必須``                        コードID。
    size                                   XHTMLのsize属性。
-   multiple                               XHTMLのmultiple属性。
-   disabled                               XHTMLのdisabled属性。
+   multiple                               XHTMLのmultiple属性 (:ref:`論理属性 <boolean_attribute>`) 。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    tabindex                               XHTMLのtabindex属性。
    onfocus                                XHTMLのonfocus属性。
    onblur                                 XHTMLのonblur属性。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    pattern                                使用するパターンのカラム名。
                                           デフォルトは指定なし。
    optionColumnName                       取得するオプション名称のカラム名。
@@ -1607,7 +1610,7 @@ codeSelectタグ
 codeRadioButtonsタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1619,9 +1622,9 @@ codeRadioButtonsタグ
    :ref:`tag-focus_attributes_tag`        accesskey属性は指定不可。
    name ``必須``                          XHTMLのname属性。
    codeId ``必須``                        コードID。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
                                           選択肢のうち、先頭要素のみautofocus属性を出力する。
    pattern                                使用するパターンのカラム名。
                                           デフォルトは指定なし。
@@ -1654,7 +1657,7 @@ codeRadioButtonsタグ
 codeCheckboxesタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1666,9 +1669,9 @@ codeCheckboxesタグ
    :ref:`tag-focus_attributes_tag`        accesskey属性は指定不可。
    name ``必須``                          XHTMLのname属性。
    codeId ``必須``                        コードID。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
                                           選択肢のうち、先頭要素のみautofocus属性を出力する。
    pattern                                使用するパターンのカラム名。
                                           デフォルトは指定なし。
@@ -1701,7 +1704,7 @@ codeCheckboxesタグ
 codeCheckboxタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1715,7 +1718,7 @@ codeCheckboxタグ
    value                                  XHTMLのvalue属性。
                                           チェックありの場合に使用するコード値。
                                           デフォルトは ``1`` 。
-   autofocus                              HTML5のautofocus属性。
+   autofocus                              HTML5のautofocus属性 (:ref:`論理属性 <boolean_attribute>`) 。
    codeId ``必須``                        コードID。
    optionColumnName                       取得するオプション名称のカラム名。
    labelPattern                           ラベルを整形するパターン。
@@ -1732,7 +1735,7 @@ codeCheckboxタグ
                                           検索結果が2件、かつ1件がvalue属性の値である場合は、
                                           残りの1件をチェックなしのコード値として使用する。
                                           検索で見つからない場合は、デフォルト値の ``0`` を使用する。
-   disabled                               XHTMLのdisabled属性。
+   disabled                               XHTMLのdisabled属性 (:ref:`論理属性 <boolean_attribute>`) 。
    onchange                               XHTMLのonchange属性。
    errorCss                               エラーレベルのメッセージに使用するCSSクラス名。
                                           デフォルトは ``nablarch_error`` 。
@@ -1745,7 +1748,7 @@ codeCheckboxタグ
 codeタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：可
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：可
 
 .. table::
    :class: tag-reference
@@ -1783,7 +1786,7 @@ codeタグ
 messageタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1812,7 +1815,7 @@ messageタグ
 writeタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1835,7 +1838,7 @@ writeタグ
 prettyPrintタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. important::
 
@@ -1858,7 +1861,7 @@ prettyPrintタグ
 rawWriteタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1875,7 +1878,7 @@ rawWriteタグ
 setタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1900,7 +1903,7 @@ setタグ
 includeタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1916,7 +1919,7 @@ includeタグ
 includeParamタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1934,7 +1937,7 @@ includeParamタグ
 confirmationPageタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 .. table::
    :class: tag-reference
@@ -1950,7 +1953,7 @@ confirmationPageタグ
 ignoreConfirmationタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 属性なし。
 
@@ -1959,7 +1962,7 @@ ignoreConfirmationタグ
 forInputPageタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 属性なし。
  
@@ -1968,6 +1971,6 @@ forInputPageタグ
 forConfirmationPageタグ
 -------------------------
 
-:ref:`動的属性の利用可否 <tag-dynamic_attributes_tag>` ：否
+:ref:`動的属性の使用可否 <tag-dynamic_attributes_tag>` ：否
 
 属性なし。

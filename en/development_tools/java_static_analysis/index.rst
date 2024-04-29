@@ -16,67 +16,44 @@ An efficient Java static check method using IntelliJ IDEA is explained in this p
 
 .. _code-analysis:
 
-Conduct syntax check
+Run inspection
 ---------------------
 
-To check the syntax, static inspection function (inspection) of IntelliJ IDEA is used.
-Inspection is a function that provides real time alerts by checking if the code follows the Java coding conventions and if there are any potential bugs.
+IntelliJ IDEA has an `inspection feature(external site) <https://www.jetbrains.com/help/idea/code-inspection.html>`_ that performs static analysis, checking for conformity to Java coding conventions and potential bugs, and alerting you in real time.
 
-The configuration file of inspection used in the development of Nablarch is provided for the project.
-Inspection configuration is applied by downloading the below file and storing them under ``PROJECT_ROOT/.idea/inspectionProfiles``.
+By default, Inspection is set to warn you about things you should generally be aware of.
 
-:download:`Configuration file <download/Project_Default.xml>`
-
-.. important::
-  To ensure that the same syntax check is performed by all developers, the inspection configuration file must be managed by VCS.
-  
-.. important::
-  The Inspection configuration contents can be referred from the point where the warning was issued and can be checked efficiently on IDE. For this reason, separate documents, such as a list of checks should not be created.
-
-.. tip::
-  Inspection can be customized by project based on the requirements.
-  The customized configuration is reflected in the configuration file under ``PROJECT_ROOT/.idea/inspectionProfiles``.
-
-~~~~~~~~~~~~~~~~~
-Check with IDE
-~~~~~~~~~~~~~~~~~
-
-The inspection configuration of IntelliJ IDEA is enabled by default and executed real time when the code is written.
-For more information, see `Manual <https://www.jetbrains.com/idea/documentation/>`_ of IntelliJ.
-
-
-~~~~~~~~~~~~~~~~
-Check with CI
-~~~~~~~~~~~~~~~~
-
-Inspection of IntelliJ IDEA can also be executed on a CI (Jenkins) server.
-For information on the configuration method, see `(external site) <http://siosio.hatenablog.com/entry/2016/12/23/212140>`_ .
+If you have established rules for your project, you can use Inspection more effectively by changing the settings to suit your project.
+Changed settings can be exported and imported to be shared among project developers.
+See `Configure profiles(external site) <https://www.jetbrains.com/help/idea/customizing-profiles.html>`_ for how to export and import.
 
 .. _code-format:
 
 Unify the format
 ----------------------
 
-To unify the format, formatted using the default code style of IntelliJ IDEA.
-For more information, see `Manual <https://www.jetbrains.com/idea/documentation/>`_ of IntelliJ.
-
-.. important::
-  The Code Style configuration contents can be efficiently checked with IDE. For this reason, separate documents, such as coding conventions should not be created.
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Automatically unify the formats before commit
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-IntelliJ IDEA has a function that manages the formatting of target commit files when committing to VCS.
-By making effective use of this, it is possible to commit the code will in accordance with the Code Style.
+By using code formatter feature of IntelliJ IDEA, you can unify the code style in your project.
+See `Java Code Formatter Description in Java style guide <https://github.com/Fintan-contents/coding-standards/blob/main/java/code-formatter.md>`_  for how to use it.
 
 .. _api-analysis:
 
 Check if unauthorized APIs are being used
 -------------------------------------------------
 
-`nablarch-intellij-plugin <https://github.com/nablarch/nablarch-intellij-plugin/tree/master/en>`_ is used for this check.
-nablarch-intellij-plugin is a plugin to use IntelliJ IDEA for supporting Nablarch development and has the following functions.
+We provide two tools for this check: the IntelliJ IDEA plugin and the SpotBugs plugin which does not depend on IntelliJ IDEA.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Use nablarch-intellij-plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`nablarch-intellij-plugin <https://github.com/nablarch/nablarch-intellij-plugin/tree/master/en>`_  is a plugin to use IntelliJ IDEA for supporting Nablarch development and has the following functions.
 
 * Throws a warning if Nablarch private API is used.
 * Throws warning if Java API registered in the black list is used.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Use Unauthorized API Check Tool
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Unauthorized API Check Tool is provided as a SpotBugs plugin. 
+See `Unauthorized API Check Tool Description in Java style guide <https://github.com/Fintan-contents/coding-standards/blob/main/en/java/staticanalysis/unpublished-api/README.md>`_ for detailed specifications and instructions.
+
+Note that the blank project has been preconfigured to `run in Maven <https://github.com/Fintan-contents/coding-standards/blob/main/en/java/staticanalysis/spotbugs/docs/Maven-settings.md>`_ , so it can be checked immediately.

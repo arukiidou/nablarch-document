@@ -188,7 +188,6 @@ Hereinafter, configuration examples will be described for each type of database.
       <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
-        <version>1.3.176</version>
         <scope>runtime</scope>
       </dependency>
     </dependencies>
@@ -203,9 +202,9 @@ Hereinafter, configuration examples will be described for each type of database.
 
       <!--使用するRDBMSにあわせて、下記JDBCドライバの dependency を更新してください。 -->
       <dependency>
-        <groupId>com.oracle</groupId>
+        <groupId>com.oracle.database.jdbc</groupId>
         <artifactId>ojdbc6</artifactId>
-        <version>11.2.0.2.0</version>
+        <version>11.2.0.4</version>
         <scope>runtime</scope>
       </dependency>
     </dependencies>

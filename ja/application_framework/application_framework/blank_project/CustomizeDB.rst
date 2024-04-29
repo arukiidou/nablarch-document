@@ -7,7 +7,7 @@
   :depth: 2
   :local:
 
-Nablarchのアーキタイプを利用して作成したプロジェクトは、 **初期状態ではH2 Database Engine** (以下H2)を使用するように設定されている。
+Nablarchのアーキタイプを使用して作成したプロジェクトは、 **初期状態ではH2 Database Engine** (以下H2)を使用するように設定されている。
 
 別のRDBMSを使用するように設定変更する手順を記述する。
 
@@ -48,34 +48,11 @@ H2
 
 H2の場合、JDBCドライバはMavenのセントラルリポジトリに公開されているため登録は不要である。
 
+
 Oracle
 ------
 
-OracleのJDBCドライバはMavenのセントラルリポジトリに公開されていないため、ローカルのMavenリポジトリに登録する必要がある。
-
-JDBCドライバをWebから取得する場合は、以下のサイトから入手する。
-
-.. list-table::
-  :header-rows: 1
-  :class: white-space-normal
-  :widths: 6,10
-
-
-  * - 配布サイトの名前
-    - URL
-
-  * - JDBC, SQLJ, Oracle JPublisher and Universal Connection Pool (UCP)
-    - http://www.oracle.com/technetwork/jp/database/features/jdbc/index-099275-ja.html (外部サイト)
-
-以下に、入手したJDBCドライバをローカルのMavenリポジトリに登録するコマンドの例を示す。
-
-.. code-block:: bash
-
-    mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.4.0 -Dpackaging=jar -Dfile=ojdbc6.jar
-
-.. tip::
-
-  ローカルのMavenリポジトリへの登録には、`maven-install-plugin(外部サイト、英語) <https://maven.apache.org/plugins/maven-install-plugin/install-file-mojo.html>`_  を使用している。
+Oracleの場合、JDBCドライバはMavenのセントラルリポジトリに公開されているため登録は不要である。
 
 
 PostgreSQL
@@ -101,8 +78,8 @@ JDBCドライバをWebから取得する場合は、以下のサイトから入�
     - URL
 
   * - IBM DB2 JDBC Driver Versions |br|
-      and Downloads - Japan
-    - http://www-01.ibm.com/support/docview.wss?uid=swg21363866 (外部サイト、英語)
+      and Downloads
+    - https://www.ibm.com/support/pages/db2-jdbc-driver-versions-and-downloads (外部サイト、英語)
 
 以下に、入手したJDBCドライバをローカルのMavenリポジトリに登録するコマンドの例を示す。
 
@@ -330,7 +307,7 @@ H2の設定例(デフォルト)
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>1.4.191</version>
+          <version>2.1.214</version>
           <scope>runtime</scope>
         </dependency>
         <!-- 中略 -->
@@ -350,9 +327,9 @@ Oracleの設定例
       <dependencies>
         <!-- 中略 -->
         <dependency>
-          <groupId>com.oracle</groupId>
+          <groupId>com.oracle.database.jdbc</groupId>
           <artifactId>ojdbc6</artifactId>
-          <version>11.2.0.4.0</version>
+          <version>11.2.0.4</version>
           <scope>runtime</scope>
         </dependency>
         <!-- 中略 -->
@@ -445,13 +422,13 @@ dependencies要素内で、JDBCドライバの依存関係が記述されてい�
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.4.191</version>
+      <version>2.1.214</version>
       <scope>runtime</scope>
     </dependency>
     <!-- 中略 -->
   </dependencies>
 
-dependency要素内の各要素については、:ref:`customizeDBProfiles` と同じ記述を行う。
+dependency要素内の各要素については、:ref:`customizeDBProfiles` と同じように記述する。
 
 
 .. _customizeDBWebComponentConfiguration:

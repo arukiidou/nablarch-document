@@ -6,15 +6,15 @@ Bean Validation
   :depth: 3
   :local:
 
-この章では、Java EE7のBean Validation(JSR349)に準拠したバリデーション機能の解説を行う。
+この章では、Java EE7のBean Validation(JSR349)に準拠したバリデーション機能を解説する。
 
 .. important::
 
   この機能は、Bean Validationのエンジンを実装しているわけではない。
 
-  Java EE環境(WebLogicやWildFlyなど)では、そのサーバ内にバンドルされているBean Validationの実装が利用される。
-  Java EE環境外で利用するには、別途Bean Validationの実装を参照ライブラリに追加する必要がある。
-  (参照実装である `Hibernate Validator(外部サイト、英語) <http://hibernate.org/validator/>`_ を利用することを推奨する。)
+  Java EE環境(WebLogicやWildFlyなど)では、そのサーバ内にバンドルされているBean Validationの実装が使用される。
+  Java EE環境外で使用するには、別途Bean Validationの実装を参照ライブラリに追加する必要がある。
+  (参照実装である `Hibernate Validator(外部サイト、英語) <http://hibernate.org/validator/>`_ を使用することを推奨する。)
 
 機能概要
 ---------------------
@@ -31,7 +31,7 @@ Bean Validation
 
 よく使われるバリデータが提供されている
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Nablarchでは、よく使われるバリデータが提供されているため、基本的なバリデーションは何かを作りこむことなく利用できる。
+Nablarchでは、よく使われるバリデータが提供されているため、基本的なバリデーションは何かを作りこむことなく使用できる。
 
 Nablarchで提供しているバリデータは以下のパッケージ内のアノテーション(注釈型)を参照。
 
@@ -74,7 +74,7 @@ Nablarchで提供しているバリデータは以下のパッケージ内のア
 
 .. _bean_validation-configuration:
 
-Bean Validationを使うための設定を行う
+Bean Validationを使うための設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bean Validationを使うために必要となる設定を以下に示す。
 
@@ -100,6 +100,9 @@ MessageInterpolatorの設定
 
 ウェブアプリケーションでBean Validationを使うための設定
   :ref:`bean_validation-web_application` を参照
+
+RESTfulウェブサービスでBean Validationを使うための設定
+  :ref:`bean_validation-restful_web_service` を参照
 
 バリデーションエラー時のエラーメッセージを定義する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,7 +212,7 @@ Java実装例
 ドメインバリデーションを使うための設定や実装例を示す。
 
 ドメインごとのバリデーションルールを定義したBeanの作成
-  ドメインバリデーションを利用するには、まずドメインごとのバリデーションルールを持つBean(ドメインBean)を作成する。
+  ドメインバリデーションを使用するには、まずドメインごとのバリデーションルールを持つBean(ドメインBean)を作成する。
 
   このBeanクラスには、ドメインごとのフィールドを定義し、フィールドに対してアノテーションを設定する。
   フィールド名がドメイン名となる。以下の例では ``name`` と ``date`` の２つのドメインが定義されている。
@@ -469,7 +472,7 @@ Java実装例
           ValidationUtil.createMessageForProperty("form.mailAddress", "duplicate.mailAddress"));
 
 
-一括登録のようなBeanの複数入力を行う機能でバリデーションを行う
+一括登録のようなBeanを複数入力する機能でバリデーションを行う
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 一括登録のように同一の情報を複数入力するケースがある。
 このような場合には、バリデーション対象のBeanに対してネストしたBeanを定義することで対応する。
@@ -509,7 +512,7 @@ Java実装例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ブラウザの開発者ツールでhtmlを改竄されたり、Webサービスで不正なJsonやXMLを受信した際にネストしたBeanの情報が送信されない場合がある。
 この場合、ネストしたBeanが未初期化状態(null)となり、バリデーション対象とならない問題がある。
-このため、確実にネストしたBeanの状態がバリデーションされるよう実装を行う必要がある。
+このため、確実にネストしたBeanの状態がバリデーションされるよう実装する必要がある。
 
 以下に幾つかの実装例を示す。
 
@@ -532,7 +535,7 @@ Java実装例
 
 親BeanとネストしたBeanが1対1の場合
   BeanをネストさせずにフラットなBeanにできないか検討すること。
-  接続先からの要求で対応できない場合には、ネストしたBeanに対するバリデーションが確実に実行されるよう実装を行うこと。
+  接続先からの要求で対応できない場合には、ネストしたBeanに対するバリデーションが確実に実行されるよう実装すること。
 
   .. code-block:: java
   
@@ -571,6 +574,13 @@ Java実装例
   プロジェクトでソート順を変更したい場合は、BeanValidationStrategyを継承し対応すること。
 
 
+.. _bean_validation-restful_web_service:
+
+RESTfulウェブサービスのユーザ入力値のチェックを行う
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+RESTfulウェブサービスのユーザ入力値のチェックは、入力値を受け取るリソースクラスのメソッドに :java:extdoc:`Valid <javax.validation.Valid>` アノテーションを設定することで行う。
+詳細は、 :ref:`jaxrs_bean_validation_handler_perform_validation` を参照。
+
 .. _bean_validation_onerror:
 
 
@@ -578,7 +588,7 @@ Java実装例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :ref:`inject_form_interceptor`\ を使用すると、バリデーション成功後にリクエストスコープにバリデーション済みのフォームを格納される。
-これを利用することでリクエストパラメータが参照できるが、バリデーションエラー時にも同様にリクエストスコープからパラメータを取得したい場合がある。
+これを使用することでリクエストパラメータが参照できるが、バリデーションエラー時にも同様にリクエストスコープからパラメータを取得したい場合がある。
 
 
 例えば、JSTLタグ(EL式)を使用する場合、Nablarchカスタムタグとは異なりリクエストパラメータを暗黙的に参照する\ [#1]_ ことはできないので、
@@ -666,7 +676,7 @@ Bean Validation(JSR349)の仕様では、項目名をメッセージに含める
   上記のFormクラスの場合、 ``sample.User`` が完全修飾名で ``name`` と ``address`` の２つのプロパティがある。
   項目名の定義には、以下のように ``sample.User.name`` と ``sample.User.address`` が必要となる。
 
-  なお、項目名の定義を行わなかった場合、メッセージに項目名は付加されない。
+  なお、項目名を定義しなかった場合、メッセージに項目名は付加されない。
 
   .. code-block:: properties
 
@@ -689,6 +699,57 @@ Bean Validation(JSR349)の仕様では、項目名をメッセージに含める
 .. tip::
   メッセージへの項目名の追加方法を変更したい場合には、 :java:extdoc:`ItemNamedConstraintViolationConverterFactory <nablarch.core.validation.ee.ItemNamedConstraintViolationConverterFactory>` 
   を参考にし、プロジェクト側で実装を追加し対応すること。
+
+
+.. _bean_validation-use_groups:
+
+Bean Validationのグループ機能を使用したい
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Bean Validation(JSR349)の仕様では、バリデーション実行時にグループを指定すると、バリデーションに使用するルールを特定のグループに制限することができる。
+Nablarchでも、Bean Validationでグループ指定可能なAPIを提供している。
+
+以下に使用例を示す。
+
+バリデーション対象のForm
+  .. code-block:: java
+
+    public class SampleForm {
+
+        @SystemChar(charsetDef = "数字", groups = {Default.class, Test1.class})
+        String id;
+
+        @SystemChar.List({
+                @SystemChar(charsetDef = "全角文字") // グループを指定しない場合は、 Defaultグループに所属していると見なされる
+                @SystemChar(charsetDef = "半角英数", groups = Test1.class),
+        })
+        String name;
+
+        public interface Test1 {}
+    }
+
+
+バリデーションを実行する処理
+  .. code-block:: java
+
+    SampleForm form = new SampleForm();
+
+    ...
+
+    // グループを指定しない場合は、Defaultグループに所属するルールを使用してバリデーションされる。
+    ValidatorUtil.validate(form);
+
+    // グループを指定する場合は、指定したグループに所属するルールを使用してバリデーションされる。
+    ValidatorUtil.validateWithGroup(form, SampleForm.Test1.class);
+
+
+APIの詳細は、 :java:extdoc:`ValidatorUtil#validateWithGroup <nablarch.core.validation.ee.ValidatorUtil.validateWithGroup(java.lang.Object-java.lang.Class...)>`
+及び :java:extdoc:`ValidatorUtil#validateProperty <nablarch.core.validation.ee.ValidatorUtil.validateProperty(java.lang.Object-java.lang.String-java.lang.Class...)>` を参照。
+
+.. tip::
+   グループ機能を使用してバリデーションのルールを切り替えることで、一つのフォームクラスを複数の画面やAPIで共通化できるようになる。
+   ただし、Nablarchではそのような使用方法を推奨していない（ :ref:`フォームクラスは、htmlのform単位に作成する <application_design-form_html>` 及び :ref:`フォームクラスはAPI単位に作成する <rest-application_design-form_html>` を参照 ）。
+   フォームクラスを共通化する目的でグループ機能を使用する場合は、プロジェクト側で十分検討の上で使用すること。
+
 
 拡張例
 ---------------

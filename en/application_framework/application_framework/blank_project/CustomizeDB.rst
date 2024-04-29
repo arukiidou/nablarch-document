@@ -48,34 +48,12 @@ H2
 
 In the case of H2, registration is not required because the JDBC driver is published in the Maven central repository.
 
+
 Oracle
 ------
 
-Since the Oracle JDBC driver is not published in the Maven central repository, it is necessary to register it in the local Maven repository.
+In the case of Oracle, registration is not required because the JDBC driver is published in the Maven central repository.
 
-The JDBC driver can be downloaded from the following site on the Internet.
-
-.. list-table::
-  :header-rows: 1
-  :class: white-space-normal
-  :widths: 6,10
-
-
-  * - Distribution site name
-    - URL
-
-  * - JDBC, SQLJ, Oracle JPublisher and Universal Connection Pool (UCP)
-    - http://www.oracle.com/technetwork/jp/database/features/jdbc/index-099275-ja.html (External site)
-
-An example of the command to register the downloaded JDBC driver to the local Maven repository is shown below.
-
-.. code-block:: bash
-
-    mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.4.0 -Dpackaging=jar -Dfile=ojdbc6.jar
-
-.. tip::
-
-  `maven-install-plugin(external site) <https://maven.apache.org/plugins/maven-install-plugin/install-file-mojo.html>`_ is used for registration to the local Maven repository.
 
 PostgreSQL
 ------------------
@@ -101,7 +79,7 @@ The JDBC driver can be downloaded from the following site on the Internet.
 
   * - IBM DB2 JDBC Driver Versions |br|
       and Downloads - Japan
-    - http://www-01.ibm.com/support/docview.wss?uid=swg21363866 (External site)
+    - https://www.ibm.com/support/pages/db2-jdbc-driver-versions-and-downloads (External site)
 
 An example of the command to register the downloaded JDBC driver to the local Maven repository is shown below.
 
@@ -326,7 +304,7 @@ H2 configuration example (default)
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>1.4.191</version>
+          <version>2.1.214</version>
           <scope>runtime</scope>
         </dependency>
         <!-- Omitted -->
@@ -346,9 +324,9 @@ Oracle configuration example
       <dependencies>
         <!-- Omitted -->
         <dependency>
-          <groupId>com.oracle</groupId>
+          <groupId>com.oracle.database.jdbc</groupId>
           <artifactId>ojdbc6</artifactId>
-          <version>11.2.0.4.0</version>
+          <version>11.2.0.4</version>
           <scope>runtime</scope>
         </dependency>
         <!-- Omitted -->
@@ -441,7 +419,7 @@ An example of the dependency element described by default is shown.
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.4.191</version>
+      <version>2.1.214</version>
       <scope>runtime</scope>
     </dependency>
     <!-- Omitted -->

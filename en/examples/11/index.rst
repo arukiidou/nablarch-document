@@ -2,13 +2,6 @@
 Messaging Platform Test Simulator Sample
 ================================================
 
-.. important::
-
-  This sample uses a Nablarch 1.4 compliant API.
-
-  When combining with versions later than Nablarch 1.4 series, customize as necessary.
-
-
 .. contents:: Table of Contents
   :depth: 3
   :local:
@@ -28,6 +21,11 @@ When the simulator receives a message
 When the simulator sends a message
   .. image:: ./_images/behavior_illustration02.png
     :scale: 70
+
+.. important::
+
+  This sample uses IBM MQ 9.3 as the MOM.
+  IBM MQ 9.3 supports Java version 8 or higher, so this sample uses Java 8.
 
 Uses
 ----------
@@ -113,16 +111,12 @@ Getting a simulator
 
     git clone https://github.com/nablarch/nablarch-messaging-simulator.git
 
-  The following libraries must be installed in the local repository to run the simulator.
-
-    * Jar file provided with WebSphere MQ
-
 Creating an execution module
-  Execute the following command to create an execution module under ``src/main/build``.
+  Execute the following command to create an execution module under ``target/build``.
 
   .. code-block:: bat
 
-    gradlew setupBuild
+     mvn clean dependency:copy-dependencies -DoutputDirectory=target/build/lib package
 
   The created execution module is placed in the environment where the simulator is to be executed.
 

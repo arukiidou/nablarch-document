@@ -35,7 +35,7 @@
 
 詳細は、:ref:`log_adaptor` を参照。
 
-本機能と利用実績の多いlog4jとの機能比較は、 :ref:`log-functional_comparison` を参照。
+本機能と使用実績の多いlog4jとの機能比較は、 :ref:`log-functional_comparison` を参照。
 
 ログ出力機能がデフォルトで提供しているクラスを示す。
 
@@ -46,7 +46,7 @@ Logger/LoggerFactory
 .. _log-log_writers:
 
 LogWriter
- * :java:extdoc:`FileLogWriter (ファイルへ出力。ファイルサイズによるローテーション) <nablarch.core.log.basic.FileLogWriter>`
+ * :java:extdoc:`FileLogWriter (ファイルへ出力。ログのローテーション。) <nablarch.core.log.basic.FileLogWriter>`
  * :java:extdoc:`SynchronousFileLogWriter (複数プロセスから1ファイルへの出力) <nablarch.core.log.basic.SynchronousFileLogWriter>`
  * :java:extdoc:`StandardOutputLogWriter (標準出力へ出力) <nablarch.core.log.basic.StandardOutputLogWriter>`
  * :java:extdoc:`LogPublisher (任意のリスナーへ出力) <nablarch.core.log.basic.LogPublisher>`
@@ -56,6 +56,12 @@ LogWriter
 LogFormatter
  * :java:extdoc:`BasicLogFormatter (パターン文字列によるフォーマット) <nablarch.core.log.basic.BasicLogFormatter>`
 
+.. _log-log_policies:
+
+RotatePolicy
+ * :java:extdoc:`DateRotatePolicy (日時によるログのローテーション) <nablarch.core.log.basic.DateRotatePolicy>`
+ * :java:extdoc:`FileSizeRotatePolicy (ファイルサイズによるログのローテーション) <nablarch.core.log.basic.FileSizeRotatePolicy>`
+  
 .. important::
  :java:extdoc:`SynchronousFileLogWriter <nablarch.core.log.basic.SynchronousFileLogWriter>`
  を使う場合は、 :ref:`log-synchronous_file_log_writer_attention` を参照すること。
@@ -80,6 +86,7 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
   log/sql_log
   log/performance_log
   log/http_access_log
+  log/jaxrs_access_log
   log/messaging_log
 
 .. list-table:: ログの種類
@@ -105,6 +112,12 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
 
    * - :ref:`HTTPアクセスログ <http_access_log>`
      - ウェブアプリケーションで、アプリケーションの実行状況を把握するための情報を出力する。
+       アプリケーションの性能測定に必要な情報、アプリケーションの負荷測定に必要な情報の出力も含む。
+       さらに、アプリケーションの不正使用を検知するために、
+       全てのリクエスト及びレスポンス情報を出力する証跡ログとしても使用する。
+
+   * - :ref:`HTTPアクセスログ（RESTfulウェブサービス用） <jaxrs_access_log>`
+     - RESTfulウェブサービスアプリケーションで、アプリケーションの実行状況を把握するための情報を出力する。
        アプリケーションの性能測定に必要な情報、アプリケーションの負荷測定に必要な情報の出力も含む。
        さらに、アプリケーションの不正使用を検知するために、
        全てのリクエスト及びレスポンス情報を出力する証跡ログとしても使用する。
@@ -138,6 +151,12 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
   <dependency>
     <groupId>com.nablarch.framework</groupId>
     <artifactId>nablarch-fw-web</artifactId>
+  </dependency>
+
+  <!-- HTTPアクセスログ（RESTfulウェブサービス用）を使用する場合のみ -->
+  <dependency>
+    <groupId>com.nablarch.framework</groupId>
+    <artifactId>nablarch-fw-jaxrs</artifactId>
   </dependency>
 
   <!-- メッセージングログを使用する場合のみ -->
@@ -185,7 +204,7 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
 
 .. _log-basic_setting:
 
-ログ出力の設定を行う
+ログ出力の設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ログ出力の設定は、プロパティファイルに行う。
 
@@ -377,7 +396,7 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
 ログ出力の設定を上書く
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ログ出力の設定は、システムプロパティを使用して、
-プロパティファイルと同じキー名で値を指定することにより上書きすることができる。
+プロパティファイルと同じキー名で値を指定することにより上書きできる。
 これにより、共通のプロパティファイルを用意しておき、プロセス毎にログ出力設定を変更するといったことができる。
 
 ロガー設定 ``root`` のログレベルをINFOに変更したい場合の例を以下に示す。
@@ -436,7 +455,7 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
 起動プロセス
  起動プロセスとは、アプリケーションを起動した実行環境を特定するために使用する名前である。
  起動プロセスにサーバ名とJOBIDなどの識別文字列を組み合わせた名前を使用することで、
- 同一サーバの複数プロセスから出力されたログの実行環境を特定することができる。
+ 同一サーバの複数プロセスから出力されたログの実行環境を特定できる。
  起動プロセスは、プロジェクト毎にID体系などで体系を規定することを想定している。
 
  起動プロセスは、システムプロパティに ``nablarch.bootProcess`` というキーで指定する。
@@ -490,16 +509,16 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
 
  .. tip::
   :java:extdoc:`BasicLogFormatter <nablarch.core.log.basic.BasicLogFormatter>` では
-  ``\n`` と ``\t`` という文字列を出力することはできない。
+  ``\n`` と ``\t`` という文字列は出力できない。
 
 .. _log-app_log_setting:
 
-各種ログの設定を行う
+各種ログの設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 各種ログの出力機能は、各種ログの用途に合わせたフォーマット処理のみを行っており、
 ログの出力処理自体は本機能を使用している。
 つまり、各種ログの出力機能では、 :java:extdoc:`Logger <nablarch.core.log.Logger>`
-に指定するメッセージ作成を行う。
+に指定するメッセージを作成する。
 
 このため、各種ログの出力機能を使うには、 :ref:`log-basic_setting` に加えて、各種ログの設定が必要となる。
 各種ログの設定は、プロパティファイルに行う。
@@ -521,8 +540,34 @@ Nablarchの提供するアーキタイプから生成したブランクプロジ
  * :ref:`sql_log-setting`
  * :ref:`performance_log-setting`
  * :ref:`http_access_log-setting`
+ * :ref:`jaxrs_access_log-setting`
  * :ref:`messaging_log-setting`
 
+.. _log-rotation:
+
+ログファイルのローテーションを行う
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+本機能で提供するFileLogWiterは、設定したポリシーに従ってログファイルのローテーションを行う。
+
+ローテーションポリシーはデフォルトではファイルサイズによるローテーションを行う :java:extdoc:`FileSizeRotatePolicy <nablarch.core.log.basic.FileSizeRotatePolicy>`
+が使用される。 :java:extdoc:`RotatePolicy <nablarch.core.log.basic.RotatePolicy>` の実装クラスを作成することで、ローテーションポリシーを変更することができる。
+
+本機能が提供している :java:extdoc:`RotatePolicy <nablarch.core.log.basic.RotatePolicy>` の実装クラスは以下。
+各 :java:extdoc:`RotatePolicy <nablarch.core.log.basic.RotatePolicy>` の設定はそれぞれのJavadocを参照。
+
+* :java:extdoc:`FileSizeRotatePolicy <nablarch.core.log.basic.FileSizeRotatePolicy>`
+* :java:extdoc:`DateRotatePolicy <nablarch.core.log.basic.DateRotatePolicy>`
+
+ローテーションポリシーの設定例を以下に示す。ローテーションポリシーはLogWriterのプロパティに指定する。
+
+  .. code-block:: properties
+
+    writerNames=sample
+    
+    # writerのrotatePolicyにRotatePolicyが実装されたクラスのFQCNを指定する
+    writer.sample.rotatePolicy=nablarch.core.log.basic.DateRotatePolicy
+    # 更新時刻。オプション。
+    writer.sample.rotateTime=12:00
 
 拡張例
 ---------------------------------------------------------------------
@@ -562,7 +607,7 @@ Object型の可変長引数optionsを設けている。
 :java:extdoc:`BasicLogFormatter <nablarch.core.log.basic.BasicLogFormatter>` は、
 :java:extdoc:`LogItem <nablarch.core.log.LogItem>` インタフェースを使用して、
 各プレースホルダに対応する出力項目を取得する。
-そのため、新規にプレースホルダを追加したい場合は、以下の作業を行う。
+そのため、新規にプレースホルダを追加したい場合は、以下のとおり対応する。
 
 * :java:extdoc:`LogItem <nablarch.core.log.LogItem>` を実装したクラスを作る
 * :java:extdoc:`BasicLogFormatter <nablarch.core.log.basic.BasicLogFormatter>` を継承したクラスを作り、プレースホルダを追加する
@@ -624,7 +669,7 @@ LogFormatterの設定は、下記を想定する。
 監視対象のログなどで、初期化メッセージが不要な場合には本機能が提供するWriterを元に、
 初期化メッセージを出力しないWriterを作成し対応する必要がある。
 
-なお、WebアプリケーションサーバなどやOSS製品とロガーを統一する目的などで :ref:`log_adaptor` を使用した場合は初期化メッセージは出力されないため、本対応は不要である。
+なお、WebアプリケーションサーバなどやOSS製品とロガーを統一する目的などで :ref:`log_adaptor` を使用した場合は初期化メッセージは出力されないため、本対応は必要無い。
 
 対応例を以下に示す。
 
@@ -689,6 +734,370 @@ LogFormatterの設定は、下記を想定する。
     # クラスの完全修飾名が「sample.CustomFileLogWriter」の場合の設定例
     writer.sample.className = sample.CustomFileLogWriter
 
+
+.. _log-json_log_setting:
+
+JSON形式の構造化ログとして出力する
+--------------------------------------------------------------------------
+
+LogWriterや各種ログで使用するフォーマッタをJSON出力用のクラスに差し替えることで、ログの出力をJSON形式にできる。
+
+具体的には、以下のとおり修正することで、ログをJSON形式にできる。
+
+* :ref:`log-json_set_jsonlogformatter_for_logwriter`
+* :ref:`log-json_app_logs`
+* :ref:`log-json_for_batch`
+
+
+.. _log-json_set_jsonlogformatter_for_logwriter:
+
+LogWriterで使用するフォーマッタをJsonLogFormatterに変更する
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LogWriterで使用するフォーマッタを :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` に変更することで、
+ログの出力をJSON形式にできる。
+
+使用方法
+ :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` の設定例を以下に示す。 
+ 
+ .. code-block:: properties
+ 
+  # JSON形式でログを出力する場合はJsonLogFormatterを指定する。
+  writer.appLog.formatter.className=nablarch.core.log.basic.JsonLogFormatter
+ 
+  # 出力項目を指定する。
+  writer.appLog.formatter.targets=date,logLevel,message,information,stackTrace
+ 
+  # 日時のフォーマットに使用するパターンを指定する。
+  # 指定しなければ"yyyy-MM-dd HH:mm:ss.SSS"となる。
+  writer.appLog.formatter.datePattern=yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+ 
+ :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` では、
+ ``targets`` プロパティにカンマ区切りで出力項目を指定する。 
+ 使用できる出力項目については、下記の通り。
+ なお、デフォルトでは全ての項目が出力される。
+ 
+ .. list-table:: targetsプロパティで指定できる出力項目
+   :header-rows: 1
+   :class: white-space-normal
+   :widths: 20,80
+ 
+   * - 出力項目
+     - 説明
+ 
+   * - date
+     - このログ出力を要求した時点の日時。
+ 
+   * - logLevel
+     - このログ出力のログレベル。
+ 
+   * - loggerName
+     - このログ出力が対応するロガー設定の名称。
+ 
+   * - runtimeLoggerName
+     - 実行時に、 :java:extdoc:`LoggerManager <nablarch.core.log.LoggerManager>` からロガー取得に指定した名称。
+ 
+   * - bootProcess
+     - 起動プロセスを識別する名前。
+ 
+   * - processingSystem
+     - 処理方式を識別する名前。
+ 
+   * - requestId
+     - このログ出力を要求した時点のリクエストID。
+ 
+   * - executionId
+     - このログ出力を要求した時点の実行時ID。
+ 
+   * - userId
+     - このログ出力を要求した時点のログインユーザのユーザID。
+ 
+   * - message
+     - このログ出力のメッセージ。
+ 
+   * - stackTrace
+     - エラー情報に指定された例外オブジェクトのスタックトレース。
+ 
+   * - payload
+     - オプション情報に指定されたオブジェクト。
+ 
+ .. tip::
+  ``datePattern`` および ``label`` (ログレベルの文言指定)は、 :java:extdoc:`BasicLogFormatter <nablarch.core.log.basic.BasicLogFormatter>` と同様に機能する。
+  
+ 記述例
+  .. code-block:: java
+  
+   // クラスを指定してLoggerを取得する。
+   // Loggerはクラス変数に保持する。
+   private static final Logger LOGGER = LoggerManager.get(UserManager.class);
+  
+  .. code-block:: java
+  
+   LOGGER.logInfo("hello");
+ 
+  (出力結果)
+
+  .. code-block:: none
+
+   {"date":"2021-02-04 12:34:56.789","logLevel":"INFO","message":"hello"}
+
+項目を独自に追加する
+ 出力対象に ``payload`` を含む場合、オプション情報に指定されたMap<String, Object>オブジェクトをJSONオブジェクトとして出力する。
+ オブジェクトの変換ルールは下記の通り。
+
+ .. list-table:: 出力可能なオブジェクト
+   :header-rows: 1
+   :class: white-space-normal
+   :widths: 40,60
+ 
+   * - 出力可能なJavaのクラス
+     - JSONによる出力
+ 
+   * - :java:extdoc:`String <java.lang.String>`
+     - JSONの文字列として出力する。
+
+   * - :java:extdoc:`Number <java.lang.Number>` 及びそのサブクラス |br|
+       （ :java:extdoc:`Integer <java.lang.Integer>` , 
+       :java:extdoc:`Long <java.lang.Long>` , 
+       :java:extdoc:`Short <java.lang.Short>` , 
+       :java:extdoc:`Byte <java.lang.Byte>` , 
+       :java:extdoc:`Float <java.lang.Float>` , 
+       :java:extdoc:`Double <java.lang.Double>` , 
+       :java:extdoc:`BigDecimal <java.math.BigDecimal>` , 
+       :java:extdoc:`BigInteger <java.math.BigInteger>` , 
+       :java:extdoc:`AtomicInteger <java.util.concurrent.atomic.AtomicInteger>` , 
+       :java:extdoc:`AtomicLong <java.util.concurrent.atomic.AtomicLong>` ）
+     - ``toString()`` メソッドの戻り値をJSONの数値として出力する。
+       NaN及び無限大はJSONの文字列として出力する。
+
+   * - :java:extdoc:`Boolean <java.lang.Boolean>`
+     - JSONの真理値（ ``true`` / ``false`` ）として出力する。
+   
+   * - :java:extdoc:`Date <java.util.Date>` |br|
+       :java:extdoc:`Calendar <java.util.Calendar>`  及びそのサブクラス |br|
+       :java:extdoc:`LocalDateTime <java.time.LocalDateTime>` ※Java8以降
+     - JSONの文字列として出力する。デフォルトの書式は、 ``"yyyy-MM-dd HH:mm:ss.SSS"`` 。
+       書式を変更する場合は、 ``datePattern`` プロパティにて指定する。
+   
+   * - :java:extdoc:`Map <java.util.Map>`  の実装クラス
+     - JSONのオブジェクトとして出力する。
+       キーが :java:extdoc:`String <java.lang.String>` ではない場合や値が ``null``
+       となる場合は、キーも含め出力されない。
+       値として ``null`` を出力する場合は、プロパティ ``ignoreNullValueMember`` に ``false`` をセットする。
+
+   * - :java:extdoc:`List <java.util.List>` の実装クラス、及び配列
+     - JSONの配列として出力する。
+  
+   * - ``null``
+     - JSONの ``null`` として出力する。
+       :java:extdoc:`Map <java.util.Map>` の値が ``null`` のとき、デフォルトでは出力対象外となる。
+
+   * - その他のオブジェクト
+     - ``toString()`` メソッドの戻り値をJSONの文字列として出力する。
+ 
+ 記述例
+  .. code-block:: java
+ 
+   Map<String, Object> structuredArgs = new HashTable<String, Object>();
+   structuredArgs.put("key1", "value1");
+   structuredArgs.put("key2", 123);
+   structuredArgs.put("key3", true);
+   structuredArgs.put("key4", null);
+   structuredArgs.put("key5", new Date());
+   LOGGER.logInfo("addition fields", structuredArgs);
+ 
+  (出力結果)
+ 
+  .. code-block:: none
+  
+   {"date":"2021-02-04 12:34:56.789","logLevel":"INFO","message":"addition fields","key1":"value1","key2":123,"key3":true,"key5":"2021-02-04 12:34:56.789"}
+ 
+ .. tip::
+  :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` を使用する場合、
+  オプション情報に :java:extdoc:`Map <java.util.Map>` < :java:extdoc:`String <java.lang.String>`
+  , :java:extdoc:`Object <java.lang.Object>` >以外のオプション情報をセットしないこと。
+  :java:extdoc:`Map <java.util.Map>` オブジェクトは複数指定することが出来るが、
+  キーが重複した場合はいずれかの値は無視され、出力されない。
+
+.. _log-json_app_logs:
+
+各種ログで使用するフォーマッタをJSONログ用に差し替える
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 各種ログは、メッセージ部分を個別の方法でフォーマットしている。
+ それぞれのフォーマットで使用しているフォーマッタをJSON用のフォーマッタに差し替えることで、各種ログが出力する内容もJSONログとして出力できるようになる。
+
+ 各フォーマッタの具体的な設定方法については、下記表のそれぞれのリンク先を参照のこと。
+
+ .. list-table:: 各種ログのJSON版フォーマッタ
+  :header-rows: 1
+  :class: white-space-normal
+  :widths: 30,50
+  
+  * - ログの種類
+    - 対応するフォーマッタ
+ 
+  * - :ref:`障害ログ <failure_log-json_setting>`
+    - :java:extdoc:`FailureJsonLogFormatter <nablarch.core.log.app.FailureJsonLogFormatter>`
+ 
+  * - :ref:`SQLログ <sql_log-json_setting>`
+    - :java:extdoc:`SqlJsonLogFormatter <nablarch.core.db.statement.SqlJsonLogFormatter>`
+ 
+  * - :ref:`パフォーマンスログ <performance_log-json_setting>`
+    - :java:extdoc:`PerformanceJsonLogFormatter <nablarch.core.log.app.PerformanceJsonLogFormatter>`
+  
+  * - :ref:`HTTPアクセスログ <http_access_log-json_setting>`
+    - :java:extdoc:`HttpAccessJsonLogFormatter <nablarch.fw.web.handler.HttpAccessJsonLogFormatter>`
+
+  * - :ref:`HTTPアクセスログ（RESTfulウェブサービス用） <jaxrs_access_log-json_setting>`
+    - :java:extdoc:`JaxRsAccessJsonLogFormatter <nablarch.fw.jaxrs.JaxRsAccessJsonLogFormatter>`
+
+  * - :ref:`メッセージングログ <messaging_log-json_setting>`
+    - :java:extdoc:`MessagingJsonLogFormatter <nablarch.fw.messaging.logging.MessagingJsonLogFormatter>`
+
+.. _log-json_for_batch:
+
+NablarchバッチのログをJSON形式にする
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Nablarchバッチで出力するログをJSON形式にするには、上述のフォーマッタの設定に加えて下記のとおり修正する必要がある。
+
+* :ref:`log-json_set_applicationsettingsjsonlogformatter`
+* :ref:`log-json_set_launcherjsonlogformatter`
+* :ref:`log-json_set_jsoncommitlogger`
+
+以下で、それぞれの設定方法について説明する。
+
+.. _log-json_set_applicationsettingsjsonlogformatter:
+
+ApplicationSettingLogFormatterをJSON用に切り替える
+******************************************************
+
+:java:extdoc:`ApplicationSettingLogFormatter <nablarch.core.log.app.ApplicationSettingLogFormatter>` は、システム設定値をログに出力するときに用いられる。
+これをJSON形式で出力するには、フォーマッタを :java:extdoc:`ApplicationSettingJsonLogFormatter <nablarch.core.log.app.ApplicationSettingJsonLogFormatter>` に切り替える。
+設定は、 :ref:`log-app_log_setting` で説明したプロパティファイルに行う。
+
+記述ルール
+ :java:extdoc:`ApplicationSettingJsonLogFormatter <nablarch.core.log.app.ApplicationSettingJsonLogFormatter>` を用いる際に
+ 指定するプロパティは以下の通り。
+ 
+ applicationSettingLogFormatter.className ``必須``
+  JSON形式でログを出力する場合、
+  :java:extdoc:`ApplicationSettingJsonLogFormatter <nablarch.core.log.app.ApplicationSettingJsonLogFormatter>` を指定する。
+
+ applicationSettingLogFormatter.appSettingTargets
+  アプリケーション設定ログで出力する項目（業務日付なし）。カンマ区切りで指定する。
+
+  指定可能な出力項目およびデフォルトの出力項目
+   :システム設定値: systemSettings ``デフォルト``
+   :業務日付: businessDate
+ 
+ applicationSettingLogFormatter.appSettingWithDateTargets
+  アプリケーション設定ログで出力する項目（業務日付あり）。カンマ区切りで指定する。
+
+  指定可能な出力項目
+   :システム設定: systemSettings
+   :業務日付: businessDate
+
+  デフォルトは全ての出力項目が対象となる。
+
+ applicationSettingLogFormatter.systemSettingItems
+  出力するシステム設定値の名前の一覧。カンマ区切りで指定する。
+  デフォルトは空なので、何も出力しない。
+
+ applicationSettingLogFormatter.structuredMessagePrefix
+  フォーマット後のメッセージ文字列が JSON 形式に整形されていることを識別できるようにするために、メッセージの先頭に付与するマーカー文字列。
+  メッセージの先頭にこのマーカーがある場合、 :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` はメッセージを JSON データとして処理する。
+  デフォルトは ``"$JSON$"`` となる。
+
+記述例
+ .. code-block:: properties
+
+  applicationSettingLogFormatter.className=nablarch.core.log.app.ApplicationSettingJsonLogFormatter
+  applicationSettingLogFormatter.structuredMessagePrefix=$JSON$
+  applicationSettingLogFormatter.appSettingTargets=systemSettings
+  applicationSettingLogFormatter.appSettingWithDateTargets=systemSettings,businessDate
+  applicationSettingLogFormatter.systemSettingItems=dbUser,dbUrl,threadCount
+
+.. _log-json_set_launcherjsonlogformatter:
+
+LauncherLogFormatterをJSON用に切り替える
+******************************************************
+
+:java:extdoc:`LauncherLogFormatter <nablarch.fw.launcher.logging.LauncherLogFormatter>` は、バッチの開始・終了ログを出力するときに用いられる。
+これをJSON形式で出力するには、フォーマッタを :java:extdoc:`LauncherJsonLogFormatter <nablarch.fw.launcher.logging.LauncherJsonLogFormatter>` に切り替える。
+設定は、 :ref:`log-app_log_setting` で説明したプロパティファイルに行う。
+
+記述ルール
+ :java:extdoc:`LauncherJsonLogFormatter <nablarch.fw.launcher.logging.LauncherJsonLogFormatter>` を用いる際に
+ 指定するプロパティは以下の通り。
+ 
+ launcherLogFormatter.className ``必須``
+  JSON形式でログを出力する場合、
+  :java:extdoc:`LauncherJsonLogFormatter <nablarch.fw.launcher.logging.LauncherJsonLogFormatter>` を指定する。
+
+ launcherLogFormatter.startTargets
+  バッチの開始ログに出力する項目。カンマ区切りで指定する。
+
+  指定可能な出力項目
+   :開始または終了のラベル: label
+   :コマンドラインオプション: commandLineOptions
+   :コマンドライン引数: commandLineArguments
+
+  デフォルトは全ての出力項目が対象となる。
+ 
+ launcherLogFormatter.endTargets
+  バッチの終了ログに出力する項目。カンマ区切りで指定する。
+
+  指定可能な出力項目
+   :開始または終了のラベル: label
+   :終了コード: exitCode
+   :処理時間: executeTime
+
+  デフォルトは全ての出力項目が対象となる。
+ 
+ launcherLogFormatter.startLogMsgLabel
+  開始ログのlabelで出力する値。デフォルトは ``"BATCH BEGIN"``。
+ 
+ launcherLogFormatter.endLogMsgLabel
+  終了ログのlabelで出力する値。デフォルトは ``"BATCH END"``。
+
+ launcherLogFormatter.structuredMessagePrefix
+  フォーマット後のメッセージ文字列が JSON 形式に整形されていることを識別できるようにするために、メッセージの先頭に付与するマーカー文字列。
+  メッセージの先頭にこのマーカーがある場合、 :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` はメッセージを JSON データとして処理する。
+  デフォルトは ``"$JSON$"`` となる。
+
+記述例
+ .. code-block:: properties
+
+  launcherLogFormatter.className=nablarch.fw.launcher.logging.LauncherJsonLogFormatter
+  launcherLogFormatter.structuredMessagePrefix=$JSON$
+  launcherLogFormatter.startTargets=label,commandLineOptions,commandLineArguments
+  launcherLogFormatter.endTargets=label,exitCode,executionTime
+  launcherLogFormatter.startLogMsgLabel=BATCH BEGIN
+  launcherLogFormatter.endLogMsgLabel=BATCH END
+
+
+.. _log-json_set_jsoncommitlogger:
+
+CommitLoggerをJSON用に切り替える
+******************************************************
+
+:java:extdoc:`CommitLogger <nablarch.core.log.app.CommitLogger>` は、コミット件数をログに出力するために用いられる。
+デフォルトでは、 :java:extdoc:`BasicCommitLogger <nablarch.core.log.app.BasicCommitLogger>` というクラスが使用される。
+
+これをJSON形式で出力するには、 :java:extdoc:`JsonCommitLogger <nablarch.core.log.app.JsonCommitLogger>` をコンポーネントとして定義する。
+以下に、コンポーネント定義の例を示す。
+
+コンポーネント定義の例
+ .. code-block:: xml
+ 
+   <component name="commitLogger" class="nablarch.core.log.app.JsonCommitLogger">
+     <property name="interval" value="${nablarch.commitLogger.interval}" />
+   </component>
+
+コンポーネント名は ``commitLogger`` で定義する必要がある。
+
 .. _log-synchronous_file_log_writer_attention:
 
 SynchronousFileLogWriterを使用するにあたっての注意事項
@@ -702,7 +1111,7 @@ SynchronousFileLogWriterを使用するにあたっての注意事項
  :java:extdoc:`SynchronousFileLogWriter <nablarch.core.log.basic.SynchronousFileLogWriter>` を使用してはいけない。
 
  また、:java:extdoc:`SynchronousFileLogWriter <nablarch.core.log.basic.SynchronousFileLogWriter>`
- には以下の制約があるため、利用にあたっては十分検討すること。
+ には以下の制約があるため、使用にあたっては十分検討すること。
 
  * ログのローテーションができない。
  * 出力されるログの内容が正常でない場合がある。
@@ -711,20 +1120,20 @@ SynchronousFileLogWriterを使用するにあたっての注意事項
 :java:extdoc:`SynchronousFileLogWriter <nablarch.core.log.basic.SynchronousFileLogWriter>` は、
 ロックファイルを用いて排他制御を行いながらファイルにログを書き込む。
 そして、ロック取得の待機時間を超えてもロックを取得できない場合、強制的にロックファイルを削除し、
-自身のスレッド用のロックファイルを生成してからログの出力を行う。
+自身のスレッド用のロックファイルを生成してからログを出力する。
 
-もし強制的にロックファイルを削除できない場合は、ロックを取得していない状態で強制的にログの出力を行う。
+もし強制的にロックファイルを削除できない場合は、ロックを取得していない状態で強制的にログを出力する。
 また、ロックファイルの生成に失敗した場合および、ロック取得待ちの際に割り込みが発生した場合も、
-ロックを取得していない状態で強制的にログの出力を行う。
+ロックを取得していない状態で強制的にログを出力する。
 
 **ロックを取得しない状態で強制的にログを出力する場合に、複数プロセスからのログ出力が競合するとログが正常に出力されない場合がある点に注意すること。**
 
 このような障害が発生した場合には、強制出力したログに加えて、同一のログファイルに障害のログを出力する。
 デフォルトでは本フレームワークが用意したログが出力されるが、
 :java:extdoc:`SynchronousFileLogWriter <nablarch.core.log.basic.SynchronousFileLogWriter>`
-のプロパティに障害コードを設定することで、障害通知ログのフォーマット(障害コードを含む)でログを出力することができる。
+のプロパティに障害コードを設定することで、障害通知ログのフォーマット(障害コードを含む)でログを出力できる。
 障害通知ログのフォーマットで出力することで通常の障害通知ログと同様の方法でログの監視が可能となるので、
-障害コードの設定を行うことを推奨する。
+障害コードを設定することを推奨する。
 
 障害コードを設定するプロパティ名を以下に示す。
 
@@ -801,9 +1210,9 @@ LogPublisherの使い方
 --------------------------------------------------
 
 :java:extdoc:`LogPublisher <nablarch.core.log.basic.LogPublisher>` は、出力されたログの情報(:java:extdoc:`LogContext <nablarch.core.log.basic.LogContext>`)を登録された :java:extdoc:`LogListener <nablarch.core.log.basic.LogListener>` に連携する機能を提供する。
-出力されたログ情報に対して何らかの処理をプログラム的に行いたい場合に、この機能が利用できる。
+出力されたログ情報に対して何らかの処理をプログラム的に行いたい場合に、この機能が使用できる。
 
-``LogPublisher`` を利用するには、まず ``LogPublisher`` を ``LogWriter`` として設定する。
+``LogPublisher`` を使用するには、まず ``LogPublisher`` を ``LogWriter`` として設定する。
 
 .. code-block:: properties
 
@@ -954,7 +1363,7 @@ LogPublisherの使い方
 
 log4jとの機能比較
 --------------------------------------------------
-ここでは、本機能と `log4j(外部サイト、英語) <http://logging.apache.org/log4j/1.2/>`_ との機能比較を示す。
+ここでは、本機能と `log4j(外部サイト、英語) <https://logging.apache.org/log4j/1.x/>`_ との機能比較を示す。
 
 .. list-table:: 機能比較（○：提供あり　△：一部提供あり　×：提供なし　－:対象外）
   :header-rows: 1
@@ -998,11 +1407,13 @@ log4jとの機能比較
   * - ファイルサイズによるログファイルのローテーションができる
     - △ [#logrolate]_
       |br|
-      :ref:`解説書へ <log-log_writers>`
+      :ref:`解説書へ <log-rotation>`
     - ○
 
   * - 日時によるログファイルのローテーションができる
-    - × [#extends_or_log4j]_
+    - △ [#logrolate]_
+      |br|
+      :ref:`解説書へ <log-rotation>`
     - ○
 
   * - ログをメールで送信できる
@@ -1073,4 +1484,3 @@ log4jとの機能比較
 .. |br| raw:: html
 
   <br />
-

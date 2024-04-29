@@ -106,10 +106,16 @@
 
 .. _message-multi_lang:
 
-多言語化対応を行う
+多言語化対応
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 メッセージの多言語化を行う場合には、言語ごとのプロパティファイルを用意し、サポートする言語を :java:extdoc:`PropertiesStringResourceLoader.locales <nablarch.core.message.PropertiesStringResourceLoader.setLocales(java.util.List)>` に設定する。
-なお、デフォルトのロケールに対応する言語( `Locale.getDefault().getLanguage()` )については、サポートする言語に追加しなくても良い。
+なお、デフォルトのロケールに対応する言語については、サポートする言語に追加しなくても良い。
+
+.. important:: 
+
+  デフォルトのロケールは、:java:extdoc:`PropertiesStringResourceLoader.defaultLocale  <nablarch.core.message.PropertiesStringResourceLoader.setDefaultLocale(java.lang.String)>` (デフォルトの言語)で設定する。設定しなかった場合、デフォルトのロケールは :java:extdoc:`Locale.getDefault().getLanguage() <java.util.Locale.getLanguage()>` の値が採用される。
+  
+  :java:extdoc:`Locale.getDefault().getLanguage() <java.util.Locale.getLanguage()>` の値はOSの設定によって変化するため、この値をデフォルトのロケールとして使用すると実行する環境に応じて値が変わり障害の原因になる可能性がある。必ずデフォルトの言語を設定すること。
 
 メッセージ取得時にどの言語が使用されるかは、 :java:extdoc:`ThreadContext#getLanguage <nablarch.core.ThreadContext.getLanguage()>` が返すロケールによって決定される。
 もし、 :java:extdoc:`ThreadContext#getLanguage <nablarch.core.ThreadContext.getLanguage()>` からロケールが取得できない場合は :java:extdoc:`Locale.getDefault() <java.util.Locale.getDefault()>` が使用される。
@@ -331,7 +337,7 @@ errorsタグを使用したメッセージレベルに応じたスタイル切�
       error=エラー
 
   スタイルシート
-    メッセージレベルに対応したスタイル定義を行う。
+    メッセージレベルに対応したスタイルを定義する。
 
     .. code-block:: css
 
@@ -382,7 +388,7 @@ errorsタグを使用したメッセージレベルに応じたスタイル切�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 メッセージをデータベースで管理するには :java:extdoc:`BasicStringResourceLoader <nablarch.core.message.BasicStringResourceLoader>` を使用してメッセージをロードする必要がある。
 
-以下にデータベースで管理するメッセージを利用するための設定例を示す。
+以下にデータベースで管理するメッセージを使用するための設定例を示す。
 
 .. code-block:: xml
 
@@ -447,7 +453,7 @@ MessageFormatterの実装クラス
 
 :java:extdoc:`BasicMessageFormatter <nablarch.core.message.BasicMessageFormatter>`:
   :ref:`埋め込み文字の仕様 <message-format-spec>` に従いメッセージをフォーマットする。
-  `MessageFormatter` の実装クラスがコンポーネント定義されていない場合は本クラスが利用される。
+  `MessageFormatter` の実装クラスがコンポーネント定義されていない場合は本クラスが使用される。
 :java:extdoc:`JavaMessageFormatBaseMessageFormatter <nablarch.core.message.JavaMessageFormatBaseMessageFormatter>`:
   :java:extdoc:`MessageFormat <java.text.MessageFormat>` を使用してメッセージをフォーマットする。
 

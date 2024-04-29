@@ -21,6 +21,8 @@ Nablarch
   development_tools/index
   examples/index
   nablarch_api/index
+  about_nablarch/versionup_policy
+  terms_of_use/index
 
 
 -----------------------------------------------
@@ -38,7 +40,7 @@ Nablarch System Development Guide
 
 Indicates as to what should be done before and during development, by engineers engaged in system development using Nablarch.
 
- | `System Development Guide <https://fintan.jp/?p=5403&lang=en>`__
+ | `System Development Guide <https://fintan.jp/en/page/1667/>`__
 
 -----------------------------------------------
 Nablarch Development Standard
@@ -46,7 +48,7 @@ Nablarch Development Standard
 
 A guideline that developers should follow when creating design documents and program code.
 
- | `Development Standard <https://fintan.jp/?p=5640&lang=en>`__
+ | `Development Standard <https://fintan.jp/en/page/1658/>`__
 
 -----------------------------------------------
 Nablarch Application Framework
@@ -112,4 +114,3 @@ Nablarch implementation examples
 -----------------------------------------------
 
   | :doc:`Manual <examples/index>`
-

@@ -13,13 +13,13 @@
 同一の処理スレッド内で共有する値をスレッドローカル領域上に保持するための仕組みである。
 
 .. important::
-  本ハンドラで設定したスレッドローカル上の値は、 :ref:`thread_context_clear_handler` を使用して、復路処理で削除を行うこと。
+  本ハンドラで設定したスレッドローカル上の値は、 :ref:`thread_context_clear_handler` を使用して、復路処理で削除すること。
   往路処理にて本ハンドラより手前のハンドラでスレッドコンテキストにアクセスした場合、
-  値を取得することはできないため本ハンドラより手前ではスレッドコンテキストにアクセスしないよう注意すること。
+  値を取得できないため本ハンドラより手前ではスレッドコンテキストにアクセスしないよう注意すること。
 
 .. tip::
  スレッドコンテキストの属性値の多くは、本ハンドラによって設定されるが、
- 本ハンドラ以外のハンドラや業務アクションから任意の変数を設定することも可能である。
+ 本ハンドラ以外のハンドラや業務アクションから任意の変数を設定可能である。
 
 本ハンドラでは、以下の処理を行う。
 
@@ -64,7 +64,10 @@
 
 リクエストID、内部リクエストID
  * :java:extdoc:`RequestIdAttribute <nablarch.common.handler.threadcontext.RequestIdAttribute>`
- * :java:extdoc:`InternalRequestIdAttribute <nablarch.common.handler.threadcontext.InternalRequestIdAttribute>`
+ * :java:extdoc:`InternalRequestIdAttribute <nablarch.common.handler.threadcontext.InternalRequestIdAttribute>` \ [#]_\
+
+.. [#] 
+   :ref:`permission_check_handler` や :ref:`ServiceAvailabilityCheckHandler` のような、内部リクエストIDに対する処理を実施するハンドラを使用する場合に設定する。
 
 ユーザID
  * :java:extdoc:`UserIdAttribute <nablarch.common.handler.threadcontext.UserIdAttribute>`

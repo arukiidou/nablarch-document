@@ -145,7 +145,7 @@ app-log.propertiesの設定例
 
 .. _failure_log-setting:
 
-障害ログの設定を行う
+障害ログの設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 障害ログの設定は、 :ref:`log-app_log_setting` で説明したプロパティファイルに行う。
 
@@ -232,7 +232,7 @@ app-log.propertiesの設定例
   :ref:`failure_log-placeholder_customize` を参照し、プロジェクトでカスタマイズすること。
 
  .. tip::
-  処理対象データの出力により、障害ログに派生元実行時情報を出力することができる。
+  処理対象データの出力により、障害ログに派生元実行時情報を出力できる。
   派生元実行時情報とは、例えば、ウェブからバッチ処理にデータ連携する場合であれば、
   画面処理を実行した時点の実行時情報(リクエストIDや実行時IDなど)がバッチ処理での派生元実行時情報となる。
   派生元実行時情報の出力方法は、 :ref:`failure_log-output_src_exe_info` を参照。
@@ -326,7 +326,7 @@ app-log.propertiesの設定例
 障害監視において、障害コードにより監視対象をフィルタリングしたいケースが考えられるため、
 障害ログの出力では、フレームワークの障害コードを指定する機能を提供する。
 
-フレームワークの障害コードは、例外が送出されたクラス名毎に指定することができる。
+フレームワークの障害コードは、例外が送出されたクラス名毎に指定できる。
 「例外が送出されたクラス」とは、スタックトレースのルート要素を指している。
 例えば、下記のスタックトレースであれば、nablarch.core.message.StringResourceHolderクラスとなる。
 
@@ -341,7 +341,7 @@ app-log.propertiesの設定例
      # 以降のスタックトレースは省略。(以降Caused byは出現しない)
 
 ただし、フレームワークのクラス毎に障害コードを設定するのは、分類が細かすぎるため現実的ではない。
-基本はパッケージ名単位に障害コードを指定することで、フレームワークのどの機能で例外が送出されたか判断することができる。
+基本はパッケージ名単位に障害コードを指定することで、フレームワークのどの機能で例外が送出されたか判断できる。
 
 フレームワークの障害コードは、プロパティファイルに指定する。
 プロパティファイルでは、キーにフレームワークのパッケージ名、値に障害コードを指定する。
@@ -486,7 +486,7 @@ app-log.propertiesの設定例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 処理対象データ($data$)はデフォルトでtoStringメソッドにより全てのデータ項目が出力されるため、
 プロジェクトのセキュリティ要件で特定項目をマスクした出力が要求されるケースが考えられる。
-このように、プレースホルダに対する出力処理をカスタマイズしたい場合は、以下の作業を行う。
+このように、プレースホルダに対する出力処理をカスタマイズしたい場合は、以下のとおり対応する。
 
 * :java:extdoc:`LogItem <nablarch.core.log.LogItem>` を実装したクラスを作る
 * :java:extdoc:`FailureLogFormatter <nablarch.core.log.app.FailureLogFormatter>` を継承したクラスを作り、プレースホルダを追加する
@@ -566,7 +566,7 @@ app-log.propertiesの設定例
    }
 
 :java:extdoc:`FailureLogFormatter <nablarch.core.log.app.FailureLogFormatter>` を継承したクラスを使うように設定する
- 障害ログのフォーマッタとしてCustomDataFailureLogFormatterを使用するように ``app-log.properties`` に設定を行う。
+ 障害ログのフォーマッタとしてCustomDataFailureLogFormatterを使用するように ``app-log.properties`` に設定する。
 
  .. code-block:: properties
 
@@ -576,3 +576,104 @@ app-log.propertiesの設定例
   failureLogFormatter.defaultMessage=an unexpected exception occurred.
   failureLogFormatter.notificationFormat=fail_code = [$failureCode$] $message$
   failureLogFormatter.analysisFormat=fail_code = [$failureCode$] $message$\nInput Data :\n$data$
+
+.. _failure_log-json_setting:
+
+JSON形式の構造化ログとして出力する
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:ref:`log-json_log_setting` 設定でログをJSON形式で出力できるが、
+:java:extdoc:`FailureLogFormatter <nablarch.core.log.app.FailureLogFormatter>` では
+障害ログの各項目はmessageの値に文字列として出力される。
+障害ログの各項目もJSONの値として出力するには、
+:java:extdoc:`FailureJsonLogFormatter <nablarch.core.log.app.FailureJsonLogFormatter>` を使用する。
+設定は、 :ref:`log-app_log_setting` で説明したプロパティファイルに行う。
+
+記述ルール
+ :java:extdoc:`FailureJsonLogFormatter <nablarch.core.log.app.FailureJsonLogFormatter>` を用いる際に
+ 指定するプロパティは以下の通り。
+ 
+ failureLogFormatter.className ``必須``
+  JSON形式でログを出力する場合、
+  :java:extdoc:`FailureJsonLogFormatter <nablarch.core.log.app.FailureJsonLogFormatter>` を指定する。
+ 
+ failureLogFormatter.defaultFailureCode ``必須``
+  デフォルトの障害コード。
+  例外ハンドラで例外がエラーを捕捉した場合など、障害コードの指定がない場合に使用する。
+ 
+ failureLogFormatter.defaultMessage ``必須``
+  デフォルトのメッセージ。
+  デフォルトの障害コードを使用する場合に出力するメッセージとなる。
+ 
+ failureLogFormatter.language
+  障害コードからメッセージを取得する際に使用する言語。
+  指定がない場合は :java:extdoc:`ThreadContext <nablarch.core.ThreadContext>` に設定されている言語を使用する。
+ 
+ .. _failure_log-prop_notification_targets:
+ 
+ failureLogFormatter.notificationTargets
+  障害通知ログの出力項目。カンマ区切りで指定する。
+ 
+  指定可能な出力項目およびデフォルトの出力項目
+   \
+ 
+   .. list-table::
+      :header-rows: 1
+      :class: white-space-normal
+      :widths: 25,20,60,30
+ 
+      * - 項目名
+        - 出力項目
+        - 説明
+        - デフォルト出力
+ 
+      * - 障害コード
+        - failureCode
+        - 障害を一意に識別するコード。障害内容の特定に使用する。
+        - ○
+ 
+      * - メッセージ
+        - message
+        - 障害コードに対応するメッセージ。障害内容の特定に使用する。
+        - ○
+ 
+      * - 処理対象データ
+        - data
+        - 障害が発生した処理が対象としていたデータを特定するために使用する。
+          データリーダを使用して読み込まれたデータオブジェクトのtoStringメソッドを呼び出し出力される。
+        - 
+ 
+      * - 連絡先
+        - contact
+        - 連絡先を特定するために使用する。
+        - 
+ 
+ failureLogFormatter.analysisTargets
+  障害解析ログの出力項目。カンマ区切りで指定する。
+  指定可能な出力項目とデフォルト設定は、
+  :ref:`障害通知ログの出力項目 <failure_log-prop_notification_targets>` と同じ。
+ 
+ failureLogFormatter.contactFilePath
+  障害の連絡先情報を指定したプロパティファイルのパス。
+  障害の連絡先情報を出力する場合に指定する。
+  詳細は :ref:`failure_log-add_contact` を参照。
+ 
+ failureLogFormatter.fwFailureCodeFilePath
+  フレームワークの障害コードの変更情報を指定したプロパティファイルのパス。
+  障害ログ出力時にフレームワークの障害コードを変更する場合に指定する。
+  詳細は :ref:`failure_log-change_fw_failure_code` を参照。
+ 
+ failureLogFormatter.structuredMessagePrefix
+  フォーマット後のメッセージ文字列が JSON 形式に整形されていることを識別できるようにするために、メッセージの先頭に付与するマーカー文字列。
+  メッセージの先頭にあるマーカー文字列が :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` に設定しているマーカー文字列と一致する場合、 :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` はメッセージを JSON データとして処理する。
+  デフォルトは ``"$JSON$"`` となる。
+  変更する場合は、LogWriterの ``structuredMessagePrefix`` プロパティを使用して :java:extdoc:`JsonLogFormatter <nablarch.core.log.basic.JsonLogFormatter>` にも同じ値を設定すること（LogWriterのプロパティについては :ref:`log-basic_setting` を参照）。
+ 
+記述例
+ .. code-block:: properties
+ 
+  failureLogFormatter.className=nablarch.core.log.app.FailureJsonLogFormatter
+  failureLogFormatter.structuredMessagePrefix=$JSON$
+  failureLogFormatter.notificationTargets=failureCode,message,contact
+  failureLogFormatter.analysisTargets=failureCode,message,data
+  failureLogFormatter.defaultFailureCode=UNEXPECTED_ERROR
+  failureLogFormatter.defaultMessage=an unexpected exception occurred.

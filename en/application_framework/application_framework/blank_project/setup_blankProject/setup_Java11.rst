@@ -1,3 +1,5 @@
+.. _setup_blank_project_for_Java11:
+
 ----------------------------------------------------------
 How to Setup When Using With Java11
 ----------------------------------------------------------
@@ -7,15 +9,20 @@ When using blank projects in Java 11, perform the following procedure before com
 * Add dependent module
 * Add dependent module used by gsp-dba-maven-plugin
 * Change of Jetty module used in automatic test (only for web projects or RESTful web service projects)
+* Change of Java Version
 
 .. tip::
    The blank project for containers assumes Java 11, and the modifications described in this chapter have been applied beforehand.
    Therefore, in a blank project for containers the procedures of this chapter are not necessary.
 
+.. _setup_blank_project_for_Java11_add_dependencies:
+
 Add dependent module
 -------------------------------------------------------------
 
-Add the following modules to the created blank project POM.
+With Java 11, some modules, such as JAXB, have been removed from the standard library.
+Removed modules need to be explicitly added to dependencies.
+Therefore, add the following modules to the created blank project POM.
 
 .. code-block:: xml
 
@@ -54,8 +61,8 @@ Add dependent module used by gsp-dba-maven-plugin
 ----------------------------------------------------------
 
 Configure by referring to the following.
- `Configuration in java11 <https://github.com/coastland/gsp-dba-maven-plugin#java11%E3%81%A7%E3%81%AE%E8%A8%AD%E5%AE%9A>`_ (external site)
 
+`Configuration in Java11 <https://github.com/coastland/gsp-dba-maven-plugin#java11%E3%81%A7%E3%81%AE%E8%A8%AD%E5%AE%9A>`_ (external site)
 
 .. _setup_java11_jetty9:
 
@@ -83,4 +90,17 @@ Therefore, make changes to 2 files as given below.
 
   <!-- Change the location of HttpServerFactoryJetty6 as follows -->
   <component name="httpServerFactory" class="nablarch.fw.web.httpserver.HttpServerFactoryJetty9"/>
+
+Change of Java Version
+------------------------------
+
+In a blank project, Java 8 is set as the Java version 
+that the source and class files conform to, so change the file as below.
+
+* pom.xml
+
+.. code-block:: xml
+
+    <!-- Change Java version as follows -->
+    <java.version>11</java.version>
 

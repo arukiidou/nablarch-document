@@ -28,7 +28,7 @@ CSRFトークンが画面に自動で出力される。
 * セッションストアからCSRFトークンを取得する。
 * 取得できなかった場合はCSRFトークンを生成してセッションストアへ保存する。
 * HTTPリクエストが検証対象か否かを判定する。
-* 検証対象の場合はHTTPリクエストからCSRFトークンを取得して検証を行う。
+* 検証対象の場合はHTTPリクエストからCSRFトークンを取得して検証する。
 * 検証に失敗した場合はBadRequest(400)のレスポンスを返す。
 * 検証に成功した場合は次のハンドラへ処理を移す。
 
@@ -62,7 +62,7 @@ CSRFトークンが画面に自動で出力される。
 
 .. _csrf_token_verification_handler-generation_verification:
 
-CSRFトークンの生成と検証を行う
+CSRFトークンの生成と検証
 --------------------------------------------------
 本ハンドラをハンドラ構成に追加するとCSRFトークンの生成と検証を行う。
 :ref:`tag` を使用する場合の設定例を以下に示す。
@@ -97,7 +97,7 @@ CSRFトークンの生成と検証を行う
 
 取得できなかった場合はCSRFトークンを生成してセッションストアへ保存する
   * CSRFトークンの生成は :java:extdoc:`CsrfTokenGenerator<nablarch.fw.web.handler.csrf.CsrfTokenGenerator>` が行う。
-    デフォルトではバージョン4のUUIDを使用してCSRFトークンの生成を行う :java:extdoc:`UUIDv4CsrfTokenGenerator<nablarch.fw.web.handler.csrf.UUIDv4CsrfTokenGenerator>` を使用する。
+    デフォルトではバージョン4のUUIDを使用してCSRFトークンを生成する :java:extdoc:`UUIDv4CsrfTokenGenerator<nablarch.fw.web.handler.csrf.UUIDv4CsrfTokenGenerator>` を使用する。
   * CSRFトークンの格納先となるセッションストアはデフォルトのセッションストアとなる。（セッションストアの名前を指定しないでCSRFトークンを格納する）
 
 HTTPリクエストが検証対象か否かを判定する
@@ -105,7 +105,7 @@ HTTPリクエストが検証対象か否かを判定する
     デフォルトではHTTPメソッドからHTTPリクエストが検証対象か否かを判定する :java:extdoc:`HttpMethodVerificationTargetMatcher<nablarch.fw.web.handler.csrf.HttpMethodVerificationTargetMatcher>` を使用する。
   *  :java:extdoc:`HttpMethodVerificationTargetMatcher<nablarch.fw.web.handler.csrf.HttpMethodVerificationTargetMatcher>` は、HTTPメソッドの ``GET`` ``HEAD`` ``TRACE`` ``OPTIONS`` をCSRFトークンの検証対象 **外** と判定する（つまりPOSTやPUT等は検査対象となる）。
 
-検証対象の場合はHTTPリクエストからCSRFトークンを取得して検証を行う
+検証対象の場合はHTTPリクエストからCSRFトークンを取得して検証する
   * CSRFトークンをHTTPリクエストに格納する際に使用する名前は以下となる。
 
     | HTTPリクエストヘッダ ``X-CSRF-TOKEN``
@@ -152,19 +152,7 @@ HTTPリクエストが検証対象か否かを判定する
   CSRF対策はアプリケーションプログラマが実装して作り込む部分ではないため、
   リクエスト単体テストではCSRF対策を無効化してテストを行えばよい。
   テスト実行時の設定において本ハンドラを何も処理しないハンドラに差し替えることでCSRF対策を無効化できる。
-  以下に設定例を示す。
-
-  .. code-block:: java
-
-    /**
-     * 何も処理しないハンドラ。
-     */
-    public class NopHandler implements HttpRequestHandler {
-        @Override
-        public HttpResponse handle(HttpRequest request, ExecutionContext context) {
-            return context.handleNext(request);
-        }
-    }
+  以下に設定例を示す。以下ではテスティングフレームワークが提供する何も処理しないハンドラである :java:extdoc:`NopHandler<nablarch.test.NopHandler>` を使用している。
 
   .. code-block:: xml
 
@@ -172,12 +160,11 @@ HTTPリクエストが検証対象か否かを判定する
          コンポーネント名を合わせることで上書きを行う。 -->
 
     <!-- CSRF対策の無効化 -->
-    <component name="csrfTokenVerificationHandler"
-               class="com.nablarch.example.app.test.NopHandler" />
+    <component name="csrfTokenVerificationHandler" class="nablarch.test.NopHandler" />
 
 .. _csrf_token_verification_handler-regeneration:
 
-CSRFトークンの再生成を行う
+CSRFトークンを再生成する
 --------------------------------------------------
 悪意のある人がCSRFトークンとそれを保持しているセッションストアのセッションIDを何らかの方法で利用者に送り込み、
 利用者がこれに気づかずにログインをしたとする。
@@ -189,8 +176,8 @@ CSRFトークンの再生成は、アクション等のリクエスト処理の�
 :java:extdoc:`CsrfTokenUtil.regenerateCsrfToken <nablarch.common.web.csrf.CsrfTokenUtil.regenerateCsrfToken(nablarch.fw.ExecutionContext)>`
 メソッドを呼び出すと、本ハンドラの戻りの処理でCSRFトークンの再生成が行われる。
 
-ログイン時にセッションストアを破棄して再生成する実装であればこのメソッドを利用する必要はない。
+ログイン時にセッションストアを破棄して再生成する実装であればこのメソッドを使用する必要はない。
 セッションストアの破棄と共にCSRFトークンも破棄され、その後のページ表示時に新しいCSRFトークンが生成されるためである。
-ログイン時にセッションストアそのものの破棄ではなくセッションIDの再生成を行うにとどめる実装の場合は、
-このメソッドを利用してCSRFトークンも再生成すること。
+ログイン時にセッションストアそのものの破棄ではなくセッションIDの再生成にとどめる実装の場合は、
+このメソッドを使用してCSRFトークンも再生成すること。
 
